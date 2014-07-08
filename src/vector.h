@@ -35,6 +35,16 @@ public:
 	 */
 	double DotProduct(const Vector3D &otherVector) const;
 
+	/**
+	 * Returns the length (magnitude) of the vector from the origin.
+	 */
+	double Length();
+
+	/**
+	 * Normalize the vector in-place to become a unit vector.
+	 */
+	void Normalize();
+
 private:
 	double x;
 	double y;

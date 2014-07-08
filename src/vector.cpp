@@ -1,5 +1,7 @@
 #include "vector.h"
 
+#include <cmath>
+
 Vector3D::Vector3D()
 	: x(0), y(0), z(0)
 {
@@ -29,4 +31,20 @@ double Vector3D::DotProduct(const Vector3D &otherVector) const
 {
 	return GetX() * otherVector.GetX() + GetY() * otherVector.GetY() +
 			GetZ() * otherVector.GetZ();
+}
+
+double Vector3D::Length()
+{
+	return sqrt(pow(GetX(), 2) + pow(GetY(), 2) + pow(GetZ(), 2));
+}
+
+void Vector3D::Normalize()
+{
+	double length = Length();
+
+	if (length > 0) {
+		x = x / length;
+		y = y / length;
+		z = z / length;
+	}
 }
