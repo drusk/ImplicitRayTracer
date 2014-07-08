@@ -1,13 +1,13 @@
-#include "point.h"
+#include "vector.h"
 
 #include <iostream>
 
 int main(int argc, char **argv)
 {
-	Point point(-5.0, 6.0);
+	Vector3D vector;
 
-	std::cout << "Created point at: " << point.GetX() << ", "
-			<< point.GetY() << std::endl;
+	std::cout << "Created vector: " << vector.GetX() << ", "
+			<< vector.GetY() << ", " << vector.GetZ() << std::endl;
 
 	return 0;
 }
