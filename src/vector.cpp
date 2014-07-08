@@ -48,3 +48,40 @@ void Vector3D::Normalize()
 		z = z / length;
 	}
 }
+
+Vector3D Vector3D::operator+(const Vector3D &otherVector) const
+{
+	return Vector3D(
+			GetX() + otherVector.GetX(),
+			GetY() + otherVector.GetY(),
+			GetZ() + otherVector.GetZ());
+}
+
+Vector3D Vector3D::operator-(const Vector3D &otherVector) const
+{
+	return Vector3D(
+			GetX() - otherVector.GetX(),
+			GetY() - otherVector.GetY(),
+			GetZ() - otherVector.GetZ());
+}
+
+Vector3D Vector3D::operator*(double scalingFactor) const
+{
+	return Vector3D(
+			GetX() * scalingFactor,
+			GetY() * scalingFactor,
+			GetZ() * scalingFactor);
+}
+
+Vector3D Vector3D::operator*(const Vector3D &otherVector) const
+{
+	return Vector3D(
+			GetX() * otherVector.GetX(),
+			GetY() * otherVector.GetY(),
+			GetZ() * otherVector.GetZ());
+}
+
+Vector3D operator*(double scalingFactor, const Vector3D &vector)
+{
+	return vector * scalingFactor;
+}

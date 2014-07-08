@@ -64,3 +64,62 @@ TEST(VectorTest, NormalizeVector)
 	EXPECT_NEAR(-0.3481553119, vector.GetY(), absError);
 	EXPECT_NEAR(0.8703882798, vector.GetZ(), absError);
 }
+
+TEST(VectorTest, Add)
+{
+	Vector3D vector1(1.0, 2.0, 3.0);
+	Vector3D vector2(4.0, 5.0, 6.0);
+
+	Vector3D sumVector = vector1 + vector2;
+
+	EXPECT_DOUBLE_EQ(5.0, sumVector.GetX());
+	EXPECT_DOUBLE_EQ(7.0, sumVector.GetY());
+	EXPECT_DOUBLE_EQ(9.0, sumVector.GetZ());
+}
+
+TEST(VectorTest, Subtract)
+{
+	Vector3D vector1(1.0, 5.0, 6.0);
+	Vector3D vector2(4.0, 1.0, 6.0);
+
+	Vector3D diffVector = vector1 - vector2;
+
+	EXPECT_DOUBLE_EQ(-3.0, diffVector.GetX());
+	EXPECT_DOUBLE_EQ(4.0, diffVector.GetY());
+	EXPECT_DOUBLE_EQ(0.0, diffVector.GetZ());
+}
+
+TEST(VectorTest, MultiplyConstantRight)
+{
+	Vector3D vector1(1.0, 2.0, 3.0);
+
+	Vector3D prodVector = vector1 * 2.5;
+
+	EXPECT_DOUBLE_EQ(2.5, prodVector.GetX());
+	EXPECT_DOUBLE_EQ(5.0, prodVector.GetY());
+	EXPECT_DOUBLE_EQ(7.5, prodVector.GetZ());
+}
+
+TEST(VectorTest, MultiplyConstantLeft)
+{
+	Vector3D vector1(1.0, 2.0, 3.0);
+
+	Vector3D prodVector = 2.5 * vector1;
+
+	EXPECT_DOUBLE_EQ(2.5, prodVector.GetX());
+	EXPECT_DOUBLE_EQ(5.0, prodVector.GetY());
+	EXPECT_DOUBLE_EQ(7.5, prodVector.GetZ());
+}
+
+
+TEST(VectorTest, MultiplyVector)
+{
+	Vector3D vector1(-1.0, 2.0, 3.0);
+	Vector3D vector2(4.0, 5.0, 6.0);
+
+	Vector3D prodVector = vector1 * vector2;
+
+	EXPECT_DOUBLE_EQ(-4.0, prodVector.GetX());
+	EXPECT_DOUBLE_EQ(10.0, prodVector.GetY());
+	EXPECT_DOUBLE_EQ(18.0, prodVector.GetZ());
+}

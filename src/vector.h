@@ -45,10 +45,41 @@ public:
 	 */
 	void Normalize();
 
+	/**
+	 * Returns a new vector whose components are the sum of the
+	 * components of the argument vectors.
+	 */
+	Vector3D operator+(const Vector3D &otherVector) const;
+
+	/**
+	 * Returns a new vector whose components are the difference of the
+	 * components of the argument vectors.
+	 */
+	Vector3D operator-(const Vector3D &otherVector) const;
+
+	/**
+	 * Returns a new vector whose components have been scaled by the
+	 * constant factor.
+	 */
+	Vector3D operator*(double scalingFactor) const;
+
+	/**
+	 * Returns a new vector whose components are the product of the
+	 * components of the argument vectors.
+	 */
+	Vector3D operator*(const Vector3D &otherVector) const;
+
 private:
 	double x;
 	double y;
 	double z;
 };
+
+/**
+ * This allows us to multiply with the scaling factor on the left,
+ * ex: "2.5 * vector".  Otherwise we could only multiply with the
+ * scaling factor on the right.
+ */
+Vector3D operator*(double scalingFactor, const Vector3D &vector);
 
 #endif
