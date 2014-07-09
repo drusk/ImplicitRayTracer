@@ -3,6 +3,7 @@
 
 #include <list>
 
+#include "image.h"
 #include "ray.h"
 #include "sphere.h"
 
