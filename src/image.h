@@ -16,7 +16,24 @@ public:
 	 */
 	~Image();
 
+	/**
+	 * Returns the width of the image in pixels.
+	 */
+	int GetWidth();
+
+	/**
+	 * Returns the height of the image in pixels.
+	 */
+	int GetHeight();
+
+	/**
+	 * Set the colour of the pixel at the specified location.
+	 */
 	void SetPixel(int x, int y, Vector3D colour);
+
+	/**
+	 * Get the colour of the pixel at the specified location.
+	 */
 	Vector3D GetPixel(int x, int y);
 
 private:

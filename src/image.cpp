@@ -11,6 +11,16 @@ Image::~Image()
 	delete[] pixels;
 }
 
+int Image::GetWidth()
+{
+	return width;
+}
+
+int Image::GetHeight()
+{
+	return height;
+}
+
 void Image::SetPixel(int x, int y, Vector3D colour)
 {
 	pixels[PixelIndex(x, y)] = colour;
