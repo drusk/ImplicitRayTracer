@@ -1,5 +1,5 @@
-#ifndef RENDERER_H_
-#define RENDERER_H_
+#ifndef PPMWRITER_H_
+#define PPMWRITER_H_
 
 #include "image.h"
 
