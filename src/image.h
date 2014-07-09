@@ -10,6 +10,10 @@ public:
 	 * Creates an image with the specified dimensions.
 	 */
 	Image(int width, int height);
+
+	/**
+	 * Destructor frees dynamic memory allocated for the image.
+	 */
 	~Image();
 
 	void SetPixel(int x, int y, Vector3D colour);

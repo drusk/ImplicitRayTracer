@@ -8,10 +8,6 @@ Image::Image(int width, int height)
 
 Image::~Image()
 {
-	for (int i = 0; i < width * height; i++) {
-		delete pixels[i];
-	}
-
 	delete[] pixels;
 }
 
