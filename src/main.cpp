@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 	int maxRayDepth = 5;
 	int imageWidth = 640;
 	int imageHeight = 480;
-	char *outputFilename = "output.ppm";
+	std::string outputFilename = "output.ppm";
 
 	RayTracer rayTracer(maxRayDepth);
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 	std::cout << "Finished tracing image, writing result to "
 			<< outputFilename << std::endl;
 
-	PPMWriter ppmWriter(outputFilename);
+	PPMWriter ppmWriter(outputFilename.c_str());
 	ppmWriter.WriteImage(image);
 
 	std::cout << "Finished writing output." << std::endl;

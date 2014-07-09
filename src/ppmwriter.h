@@ -13,7 +13,7 @@ public:
 	 * Creates a writer which will output to a file with the
 	 * specified name.
 	 */
-	PPMWriter(char *outputFilename);
+	PPMWriter(const char *outputFilename);
 
 	/**
 	 * Writes the specified image to the output file.
@@ -21,7 +21,7 @@ public:
 	void WriteImage(Image *image);
 
 private:
-	char *outputFilename;
+	const char *outputFilename;
 
 	/**
 	 * Clips a value so that if it is above the specified max value,

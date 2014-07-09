@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-PPMWriter::PPMWriter(char *outputFilename)
+PPMWriter::PPMWriter(const char *outputFilename)
 	: outputFilename(outputFilename)
 {
 }
