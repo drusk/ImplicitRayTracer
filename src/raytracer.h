@@ -6,6 +6,7 @@
 #include "image.h"
 #include "ray.h"
 #include "sphere.h"
+#include "vector.h"
 
 class RayTracer
 {
@@ -21,6 +22,11 @@ public:
 	void AddObject(Sphere *sphere);
 
 	/**
+	 * Trace all of the rays for the scene and return an image.
+	 */
+	Image *TraceImage(int width, int height);
+
+	/**
 	 * Trace the specified ray.  If this ray intersects any of the
 	 * objects in the scene, the intersection point and normal at the
 	 * intersection point are calculated in order to determine the
@@ -31,9 +37,16 @@ public:
 	Vector3D TraceRay(Ray ray);
 
 	/**
-	 * Trace all of the rays for the scene and return an image.
+	 * Checks to see if the ray intersects any objects.  Returns true if
+	 * there is an intersection, false otherwise.  If there is an
+	 * intersection, the parameter intersectedObject is used to return
+	 * a reference to the intersected object, and distance is used to
+	 * return the distance to the nearest intersection point.
+	 *
+	 * If multiple objects are intersected by the ray, the closest one
+	 * is returned.
 	 */
-	Image *TraceImage(int width, int height);
+	bool IntersectObject(Ray ray, Sphere **intersectedObject, double *distance);
 
 private:
 	std::list<Sphere *> spheres;

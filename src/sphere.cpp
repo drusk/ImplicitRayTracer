@@ -27,8 +27,9 @@ bool Sphere::IsLightSource()
 
 bool Sphere::Intersect(Ray ray, double *nearPoint, double *farPoint)
 {
-	Vector3D centerToRay = center - ray.GetOrigin();
-	double projectionAlongRay = centerToRay.DotProduct(ray.GetDirection());
+	Vector3D rayToCenter = center - ray.GetOrigin();
+
+	double projectionAlongRay = rayToCenter.DotProduct(ray.GetDirection());
 
 	if (projectionAlongRay < 0) {
 		/* Behind ray origin, so no intersection. */
@@ -39,15 +40,15 @@ bool Sphere::Intersect(Ray ray, double *nearPoint, double *farPoint)
 	 * Using properties of triangle: h^2 = x^2 + y^2
 	 * centerToRay is hypotenuse.
 	 */
-	double squaredDistanceFromCenterToIntersection = centerToRay.DotProduct(
-			centerToRay) - projectionAlongRay * projectionAlongRay;
+	double squaredDistanceFromCenterToIntersection = rayToCenter.DotProduct(
+			rayToCenter) - projectionAlongRay * projectionAlongRay;
 
 	if (squaredDistanceFromCenterToIntersection > radiusSquared) {
 		/* Ray shoots wide, doesn't hit sphere. */
 		return false;
 	}
 
-	double distanceFromCenterToIntersection = sqrt(
+	double distanceFromCenterToIntersection = sqrt(radiusSquared -
 			squaredDistanceFromCenterToIntersection);
 
 	*nearPoint = projectionAlongRay - distanceFromCenterToIntersection;
