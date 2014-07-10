@@ -49,6 +49,13 @@ void Vector3D::Normalize()
 	}
 }
 
+void Vector3D::Reverse()
+{
+	x = -x;
+	y = -y;
+	z = -z;
+}
+
 Vector3D Vector3D::operator+(const Vector3D &otherVector) const
 {
 	return Vector3D(

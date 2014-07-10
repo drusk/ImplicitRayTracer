@@ -65,6 +65,16 @@ TEST(VectorTest, NormalizeVector)
 	EXPECT_NEAR(0.8703882798, vector.GetZ(), absError);
 }
 
+TEST(VectorTest, ReverseVector)
+{
+	Vector3D vector(2.0, -2.0, 5.0);
+	vector.Reverse();
+
+	EXPECT_DOUBLE_EQ(-2.0, vector.GetX());
+	EXPECT_DOUBLE_EQ(2.0, vector.GetY());
+	EXPECT_DOUBLE_EQ(-5.0, vector.GetZ());
+}
+
 TEST(VectorTest, Add)
 {
 	Vector3D vector1(1.0, 2.0, 3.0);

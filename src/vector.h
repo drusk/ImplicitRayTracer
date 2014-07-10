@@ -46,6 +46,11 @@ public:
 	void Normalize();
 
 	/**
+	 * Reverse the vector's direction in-place.
+	 */
+	void Reverse();
+
+	/**
 	 * Returns a new vector whose components are the sum of the
 	 * components of the argument vectors.
 	 */
