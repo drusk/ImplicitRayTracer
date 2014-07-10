@@ -47,11 +47,13 @@ int main(int argc, char **argv)
 	 * config file, etc.
 	 */
 	int maxRayDepth = 5;
+	double fieldOfView = 30;
 	int imageWidth = 640;
 	int imageHeight = 480;
+	Vector3D backgroundColour(0.0, 0.0, 0.0);
 	std::string outputFilename = "output.ppm";
 
-	RayTracer rayTracer(maxRayDepth);
+	RayTracer rayTracer(maxRayDepth, fieldOfView, backgroundColour);
 
 	CreateScene(rayTracer);
 

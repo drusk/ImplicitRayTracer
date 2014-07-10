@@ -30,6 +30,12 @@ public:
 	 */
 	bool Intersect(Ray ray, double *nearPoint, double *farPoint);
 
+	/**
+	 * Returns the normal of this object at the intersection point provided.
+	 * The normal is normalized to a unit vector.
+	 */
+	Vector3D GetNormal(Vector3D intersectionPoint);
+
 private:
 	Vector3D center;
 	double radius;

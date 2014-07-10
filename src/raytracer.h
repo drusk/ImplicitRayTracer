@@ -12,9 +12,10 @@ class RayTracer
 {
 public:
 	/**
-	 * Creates the raytracer with the specified max ray depth.
+	 * Creates the raytracer with the specified max ray depth and field
+	 * of view (in degrees).
 	 */
-	RayTracer(int maxRayDepth);
+	RayTracer(int maxRayDepth, double fieldOfView, Vector3D backgroundColour);
 
 	/**
 	 * Adds an object to the scene.
@@ -52,6 +53,8 @@ private:
 	std::list<Sphere *> spheres;
 
 	int maxRayDepth;
+	double fieldOfView;
+	Vector3D backgroundColour;
 };
 
 #endif

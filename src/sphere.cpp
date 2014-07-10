@@ -56,3 +56,10 @@ bool Sphere::Intersect(Ray ray, double *nearPoint, double *farPoint)
 
 	return true;
 }
+
+Vector3D Sphere::GetNormal(Vector3D intersectionPoint)
+{
+	Vector3D normal = intersectionPoint - center;
+	normal.Normalize();
+	return normal;
+}
