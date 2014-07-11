@@ -3,13 +3,13 @@
 #include <cmath>
 
 Sphere::Sphere(Vector3D center, double radius, Vector3D surfaceColour,
-		double transparency, double reflectivity)
+		double reflectivity, double transparency)
 	: center(center),
 	  radius(radius),
 	  radiusSquared(radius * radius),
 	  surfaceColour(surfaceColour),
-	  transparency(transparency),
 	  reflectivity(reflectivity),
+	  transparency(transparency),
 	  isLightSource(false)
 {
 }

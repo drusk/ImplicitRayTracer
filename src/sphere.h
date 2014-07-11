@@ -75,8 +75,8 @@ private:
 	double radius;
 	double radiusSquared;
 	Vector3D surfaceColour;
-	double transparency;
 	double reflectivity;
+	double transparency;
 
 	bool isLightSource;
 	Vector3D emissionColour;
