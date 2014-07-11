@@ -54,7 +54,7 @@ Vector3D RayTracer::TraceRay(Ray ray, int depth)
 		Vector3D refraction;
 
 		if (intersectedObject->IsTransparent()) {
-			/* Also compute refraction ray from trasmission. */
+			/* Also compute refraction ray from transmission. */
 			Ray refractedRay = CalculateRefractedRay(ray, inside,
 					pointOfIntersection, intersectionNormal);
 

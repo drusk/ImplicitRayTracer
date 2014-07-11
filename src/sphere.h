@@ -8,7 +8,7 @@ class Sphere
 {
 public:
 	Sphere(Vector3D center, double radius, Vector3D surfaceColour,
-			double transparency, double reflectivity);
+			double reflectivity, double transparency);
 
 	/**
 	 * Returns the center point of the object.
