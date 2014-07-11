@@ -13,6 +13,10 @@ Implicit surfaces can be rendered using either:
 
 In this project the 1st approach is taken.
 
+Example
+-------
+![Ray-traced spheres](/examples/spheres.png?raw=true "Ray-traced spheres")
+
 Build and Run
 -------------
 Building uses [cmake](http://www.cmake.org/), 
