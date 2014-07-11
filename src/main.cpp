@@ -51,9 +51,10 @@ int main(int argc, char **argv)
 	int imageWidth = 640;
 	int imageHeight = 480;
 	Vector3D backgroundColour(0.0, 0.0, 0.0);
+	double bias = 1e-4;
 	std::string outputFilename = "output.ppm";
 
-	RayTracer rayTracer(maxRayDepth, fieldOfView, backgroundColour);
+	RayTracer rayTracer(maxRayDepth, fieldOfView, backgroundColour, bias);
 
 	CreateScene(rayTracer);
 

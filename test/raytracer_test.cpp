@@ -8,6 +8,7 @@
 #define MAX_DEPTH 5
 #define FOV 30
 #define BACKGROUND Vector3D(0.0, 0.0, 0.0)
+#define BIAS 1e-4
 #define DEFAULT_SURFACE_COLOUR Vector3D(1.0, 1.0, 1.0)
 #define DEFAULT_TRANSPARENCY 0.5
 #define DEFAULT_REFLECTIVITY 0.5
@@ -15,7 +16,7 @@
 
 TEST(RayTracerTest, IntersectObjectSingleDirectHit)
 {
-	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND);
+	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
 	double radius = 2.0;
 	Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
@@ -41,7 +42,7 @@ TEST(RayTracerTest, IntersectObjectSingleDirectHit)
 
 TEST(RayTracerTest, IntersectObjectSinglePeripheralHit)
 {
-	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND);
+	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
 	double radius = 2.0;
 	Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
@@ -67,7 +68,7 @@ TEST(RayTracerTest, IntersectObjectSinglePeripheralHit)
 
 TEST(RayTracerTest, IntersectObjectMiss)
 {
-	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND);
+	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
 	double radius = 2.0;
 	Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
@@ -88,7 +89,7 @@ TEST(RayTracerTest, IntersectObjectMiss)
 
 TEST(RayTracerTest, IntersectObjectMultipleHitNearest)
 {
-	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND);
+	RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
 	double radius = 2.0;
 	Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,

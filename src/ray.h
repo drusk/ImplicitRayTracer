@@ -14,18 +14,18 @@ public:
 	/**
 	 * Returns the point in space where the ray originates.
 	 */
-	Vector3D GetOrigin();
+	Vector3D GetOrigin() const;
 
 	/**
 	 * Returns the unit vector of the direction the ray is pointing.
 	 */
-	Vector3D GetDirection();
+	Vector3D GetDirection() const;
 
 	/**
 	 * Returns the point along the ray at distance <code>distance</code>
 	 * from the origin.
 	 */
-	Vector3D Follow(double distance);
+	Vector3D Follow(double distance) const;
 
 private:
 	Vector3D origin;

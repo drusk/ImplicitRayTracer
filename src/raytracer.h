@@ -15,7 +15,8 @@ public:
 	 * Creates the raytracer with the specified max ray depth and field
 	 * of view (in degrees).
 	 */
-	RayTracer(int maxRayDepth, double fieldOfView, Vector3D backgroundColour);
+	RayTracer(int maxRayDepth, double fieldOfView, Vector3D backgroundColour,
+			double bias);
 
 	/**
 	 * Adds an object to the scene.
@@ -33,9 +34,11 @@ public:
 	 * intersection point are calculated in order to determine the
 	 * shading for this point.
 	 * Shading is determined by the properties of the surface intersected.
+	 * The parameter depth specifies how many times we have recursed due
+	 * to reflections.
 	 * Returns: colour of the ray.
 	 */
-	Vector3D TraceRay(Ray ray);
+	Vector3D TraceRay(Ray ray, int depth);
 
 	/**
 	 * Checks to see if the ray intersects any objects.  Returns true if
@@ -49,12 +52,42 @@ public:
 	 */
 	bool IntersectObject(Ray ray, Sphere **intersectedObject, double *distance);
 
+	/**
+	 * Returns the ray produced by the incoming ray's intersection with an
+	 * object at the specified point, given that the object's surface
+	 * normal is as provided.
+	 */
+	Ray CalculateReflectedRay(Ray ray, Vector3D intersectionPoint,
+			Vector3D normal);
+
+	/**
+	 * Returns the ray produced by the incoming ray's refraction with an
+	 * object at the specified point, given that the object's surface
+	 * normal is as provided.  If the parameter inside is true, then the
+	 * ray is refracting from inside the object, otherwise from outside.
+	 */
+	Ray CalculateRefractedRay(Ray ray, bool inside, Vector3D intersectionPoint,
+			Vector3D normal);
+
+	/**
+	 * Calculates the light at a location on the surface of the intersected
+	 * object due to anylight sources in the scene.  The parameter normal
+	 * is the intersected object's surface normal at the intersection point.
+	 */
+	Vector3D CalculateIlluminationFromLightSources(Sphere *intersectedObject,
+			Vector3D intersectionPoint, Vector3D normal);
+
 private:
 	std::list<Sphere *> spheres;
 
 	int maxRayDepth;
 	double fieldOfView;
 	Vector3D backgroundColour;
+	double bias;
+
+	double CalculateFresnelEffect(const Ray &ray, const Vector3D &normal);
+
+	double Mix(double a, double b, double mix);
 };
 
 #endif
