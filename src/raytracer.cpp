@@ -120,7 +120,7 @@ Ray RayTracer::CalculateRefractedRay(Ray ray, bool inside,
 	Vector3D rayDirection = ray.GetDirection();
 
 	double ior = 1.1;
-	double eta = inside ? ior: 1 / ior;
+	double eta = inside ? ior : 1 / ior;
 	double cosi = -(normal.DotProduct(rayDirection));
 
 	double k = 1 - eta * eta * (1 - cosi * cosi);

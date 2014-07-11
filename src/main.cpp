@@ -47,10 +47,10 @@ int main(int argc, char **argv)
 	 * config file, etc.
 	 */
 	int maxRayDepth = 5;
-	double fieldOfView = 30;
+	double fieldOfView = 30.0;
 	int imageWidth = 640;
 	int imageHeight = 480;
-	Vector3D backgroundColour(1.0, 1.0, 1.0);
+	Vector3D backgroundColour(2.0, 2.0, 2.0);
 	double bias = 1e-4;
 	std::string outputFilename = "output.ppm";
 
