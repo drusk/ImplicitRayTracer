@@ -133,3 +133,15 @@ TEST(VectorTest, MultiplyVector)
 	EXPECT_DOUBLE_EQ(10.0, prodVector.GetY());
 	EXPECT_DOUBLE_EQ(18.0, prodVector.GetZ());
 }
+
+TEST(VectorTest, PlusEquals)
+{
+	Vector3D vector1(-1.0, 2.0, 3.0);
+	Vector3D vector2(4.0, 5.0, 6.0);
+
+	vector1 += vector2;
+
+	EXPECT_DOUBLE_EQ(3.0, vector1.GetX());
+	EXPECT_DOUBLE_EQ(7.0, vector1.GetY());
+	EXPECT_DOUBLE_EQ(9.0, vector1.GetZ());
+}

@@ -92,3 +92,12 @@ Vector3D operator*(double scalingFactor, const Vector3D &vector)
 {
 	return vector * scalingFactor;
 }
+
+Vector3D &Vector3D::operator+=(const Vector3D &otherVector)
+{
+	x += otherVector.GetX();
+	y += otherVector.GetY();
+	z += otherVector.GetZ();
+
+	return *this;
+}

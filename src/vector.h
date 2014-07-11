@@ -74,6 +74,12 @@ public:
 	 */
 	Vector3D operator*(const Vector3D &otherVector) const;
 
+	/**
+	 * Adds the value of the other vector to this vector.  Returns a
+	 * reference to this vector for convenience.
+	 */
+	Vector3D &operator+=(const Vector3D &otherVector);
+
 private:
 	double x;
 	double y;
