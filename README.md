@@ -23,3 +23,9 @@ There are no external dependencies.
 
 * Run the application with ```run.sh```
 * Run the tests with ```test.sh```
+
+Acknowledgements
+----------------
+The original ray tracing code was heavily influenced by the lessons at
+[scratchapixel](http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-1-writing-a-simple-raytracer/source-code/), though all code has been heavily refactored during
+my process of understanding it.
