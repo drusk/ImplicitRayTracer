@@ -13,7 +13,7 @@ void CreateScene(RayTracer &rayTracer)
 	std::cout << "Creating scene..." << std::endl;
 
 	rayTracer.AddObject(
-			new Sphere(Vector3D(0, -10004, -20), 1000,
+			new Sphere(Vector3D(0, -10004, -20), 10000,
 					Vector3D(0.2, 0.2, 0.2), 0.0, 0.0)
 	);
 	rayTracer.AddObject(
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	double fieldOfView = 30;
 	int imageWidth = 640;
 	int imageHeight = 480;
-	Vector3D backgroundColour(0.0, 0.0, 0.0);
+	Vector3D backgroundColour(1.0, 1.0, 1.0);
 	double bias = 1e-4;
 	std::string outputFilename = "output.ppm";
 
