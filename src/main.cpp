@@ -17,19 +17,19 @@ void CreateScene(RayTracer &rayTracer)
 					Vector3D(0.2, 0.2, 0.2), 0.0, 0.0)
 	);
 	rayTracer.AddObject(
-			new Sphere(Vector3D(0, 0, -20), 4,
-					Vector3D(1.00, 0.32, 0.36), 1.0, 0.5)
+			new Sphere(Vector3D(0, 0.5, -20), 4,
+					Vector3D(0.3, 0.6, 0.0), 1.0, 0.5)
 	);
 	rayTracer.AddObject(
 			new Sphere(Vector3D(5, -1, -15), 2,
-					Vector3D(0.90, 0.76, 0.46), 1.0, 0.0)
+					Vector3D(1.00, 0.84, 0.0), 1.0, 0.0)
 	);
 	rayTracer.AddObject(
-			new Sphere(Vector3D(5, 0, -25), 3,
-					Vector3D(0.65, 0.77,0.97), 1.0, 0.0)
+			new Sphere(Vector3D(5, 0.5, -25), 3,
+					Vector3D(0.53, 0.81, 0.92), 1.0, 0.0)
 	);
 	rayTracer.AddObject(
-			new Sphere(Vector3D(-5.5, 0, -15), 3,
+			new Sphere(Vector3D(-5.5, -0.5, -15), 3,
 					Vector3D(0.90, 0.90, 0.90), 1.0, 0.0)
 	);
 
