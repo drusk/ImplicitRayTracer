@@ -87,6 +87,11 @@ bool RayTracer::IntersectObject(Ray ray, Sphere **intersectedObject,
 		if (sphere->Intersect(ray, &nearPoint, &farPoint)) {
 			hasIntersection = true;
 
+			if (nearPoint < 0) {
+				/* Transparency doesn't work without this. */
+				nearPoint = farPoint;
+			}
+
 			if (nearPoint < nearestIntersection) {
 				nearestIntersection = nearPoint;
 
