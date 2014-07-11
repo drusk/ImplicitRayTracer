@@ -68,7 +68,7 @@ Vector3D RayTracer::TraceRay(Ray ray, int depth)
 				intersectedObject, pointOfIntersection, intersectionNormal);
 	}
 
-	return surfaceColour;
+	return surfaceColour + intersectedObject->GetEmissionColour();
 }
 
 bool RayTracer::IntersectObject(Ray ray, Sphere **intersectedObject,
