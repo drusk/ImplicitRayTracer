@@ -13,7 +13,7 @@ set(COMMON_INCLUDES_DIR ${PROJECT_SOURCE_DIR}/src)
 set(MAIN_FILE ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
 file(GLOB_RECURSE LIBRARY_FILES ${PROJECT_SOURCE_DIR}/src/*.h 
-								${PROJECT_SOURCE_DIR}/src/*.cpp)
+                                ${PROJECT_SOURCE_DIR}/src/*.cpp)
 list(REMOVE_ITEM LIBRARY_FILES ${MAIN_FILE})
 
 set(PROJECT_LIB lib${PROJECT_NAME_STR})
@@ -30,15 +30,15 @@ enable_testing()
 set(PROJECT_TEST_NAME ${PROJECT_NAME_STR}_test)
 
 include_directories(${gtest_SOURCE_DIR}/include 
-					${gtest_SOURCE_DIR}
-					${COMMON_INCLUDES_DIR})
+                    ${gtest_SOURCE_DIR}
+                    ${COMMON_INCLUDES_DIR})
 
 file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
 
 target_link_libraries(${PROJECT_TEST_NAME}
-	gtest
-	gtest_main
+    gtest
+    gtest_main
 )
 
 target_link_libraries(${PROJECT_TEST_NAME} ${PROJECT_LIB})

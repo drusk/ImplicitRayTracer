@@ -1,22 +1,22 @@
 #include "ray.h"
 
 Ray::Ray(Vector3D origin, Vector3D direction)
-	: origin(origin), direction(direction)
+    : origin(origin), direction(direction)
 {
-	this->direction.Normalize();
+    this->direction.Normalize();
 }
 
 Vector3D Ray::GetOrigin() const
 {
-	return origin;
+    return origin;
 }
 
 Vector3D Ray::GetDirection() const
 {
-	return direction;
+    return direction;
 }
 
 Vector3D Ray::Follow(double distance) const
 {
-	return origin + direction * distance;
+    return origin + direction * distance;
 }

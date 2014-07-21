@@ -17,7 +17,7 @@ public:
 	 */
 	RayTracer(int maxRayDepth, double fieldOfView, Vector3D backgroundColour,
 			double bias);
-
+    
 	/**
 	 * Adds an object to the scene.
 	 */

@@ -3,51 +3,50 @@
 
 #include "vector.h"
 
-class Image
-{
+class Image {
 public:
-	/**
-	 * Creates an image with the specified dimensions.
-	 */
-	Image(int width, int height);
+    /**
+     * Creates an image with the specified dimensions.
+     */
+    Image(int width, int height);
 
-	/**
-	 * Destructor frees dynamic memory allocated for the image.
-	 */
-	~Image();
+    /**
+     * Destructor frees dynamic memory allocated for the image.
+     */
+    ~Image();
 
-	/**
-	 * Returns the width of the image in pixels.
-	 */
-	int GetWidth();
+    /**
+     * Returns the width of the image in pixels.
+     */
+    int GetWidth();
 
-	/**
-	 * Returns the height of the image in pixels.
-	 */
-	int GetHeight();
+    /**
+     * Returns the height of the image in pixels.
+     */
+    int GetHeight();
 
-	/**
-	 * Set the colour of the pixel at the specified location.
-	 */
-	void SetPixel(int x, int y, Vector3D colour);
+    /**
+     * Set the colour of the pixel at the specified location.
+     */
+    void SetPixel(int x, int y, Vector3D colour);
 
-	/**
-	 * Get the colour of the pixel at the specified location.
-	 */
-	Vector3D GetPixel(int x, int y);
+    /**
+     * Get the colour of the pixel at the specified location.
+     */
+    Vector3D GetPixel(int x, int y);
 
 private:
-	int width;
-	int height;
+    int width;
+    int height;
 
-	/* Stored in row-major order. */
-	Vector3D *pixels;
+    /* Stored in row-major order. */
+    Vector3D *pixels;
 
-	/**
-	 * Retrieves the index in the pixel array corresponding to the
-	 * specified x and y position.
-	 */
-	int PixelIndex(int x, int y);
+    /**
+     * Retrieves the index in the pixel array corresponding to the
+     * specified x and y position.
+     */
+    int PixelIndex(int x, int y);
 };
 
 #endif
