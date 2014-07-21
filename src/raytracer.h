@@ -18,6 +18,11 @@ public:
 	RayTracer(int maxRayDepth, double fieldOfView, Vector3D backgroundColour,
 			double bias);
     
+    /**
+     * Frees objects rendered by the ray tracer after rendering is finished.
+     */
+    virtual ~RayTracer();
+    
 	/**
 	 * Adds an object to the scene.
 	 */

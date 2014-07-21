@@ -69,6 +69,9 @@ int main(int argc, char **argv)
     ppmWriter.WriteImage(image);
 
     std::cout << "Finished writing output." << std::endl;
+    
+    delete image;
+    
     std::cout << "Done." << std::endl;
 
     return 0;

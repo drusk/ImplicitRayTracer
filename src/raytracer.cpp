@@ -11,6 +11,14 @@ RayTracer::RayTracer(int maxRayDepth, double fieldOfView,
 {
 }
 
+RayTracer::~RayTracer()
+{
+    while(!spheres.empty()) {
+        delete spheres.front();
+        spheres.pop_front();
+    }
+}
+
 void RayTracer::AddObject(Sphere *sphere)
 {
     spheres.push_back(sphere);
