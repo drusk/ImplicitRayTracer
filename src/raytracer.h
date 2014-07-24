@@ -76,7 +76,7 @@ public:
 
 	/**
 	 * Calculates the light at a location on the surface of the intersected
-	 * object due to anylight sources in the scene.  The parameter normal
+	 * object due to any light sources in the scene.  The parameter normal
 	 * is the intersected object's surface normal at the intersection point.
 	 */
 	Vector3D CalculateIlluminationFromLightSources(Sphere *intersectedObject,
