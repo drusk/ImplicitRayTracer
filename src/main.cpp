@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "defaults.h"
 #include "image.h"
 #include "ppmwriter.h"
 #include "raytracer.h"
@@ -42,26 +43,18 @@ void CreateScene(RayTracer &rayTracer)
 
 int main(int argc, char **argv)
 {
-    /* Parameters for the application.
-     * TODO: allow these to be specified on the command line or in a
-     * config file, etc.
-     */
-    int maxRayDepth = 5;
-    double fieldOfView = 30.0;
-    int imageWidth = 640;
-    int imageHeight = 480;
-    Vector3D backgroundColour(2.0, 2.0, 2.0);
-    double bias = 1e-4;
-    std::string outputFilename = "output.ppm";
-
-    RayTracer rayTracer(maxRayDepth, fieldOfView, backgroundColour, bias);
+    RayTracer rayTracer(defaults::MAX_RAY_DEPTH, defaults::FIELD_OF_VIEW,
+            defaults::BACKGROUND_COLOUR, defaults::BIAS);
 
     CreateScene(rayTracer);
 
     std::cout << "Finished creating scene, tracing image..." << std::endl;
 
-    Image *image = rayTracer.TraceImage(imageWidth, imageHeight);
+    Image *image = rayTracer.TraceImage(defaults::IMAGE_WIDTH, 
+            defaults::IMAGE_HEIGHT);
 
+    std::string outputFilename = defaults::OUTPUT_FILENAME;
+    
     std::cout << "Finished tracing image, writing result to "
                 << outputFilename << std::endl;
 
