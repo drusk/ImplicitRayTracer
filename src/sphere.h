@@ -2,7 +2,7 @@
 #define SPHERE_H_
 
 #include "ray.h"
-#include "vector.h"
+#include "vector3d.h"
 
 class Sphere
 {

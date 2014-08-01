@@ -1,7 +1,7 @@
 #ifndef IMAGE_H_
 #define IMAGE_H_
 
-#include "vector.h"
+#include "vector3d.h"
 
 class Image {
 public:

@@ -157,7 +157,7 @@ Vector3D RayTracer::CalculateIlluminationFromLightSources(
             lightDirection.Normalize();
 
             for (SphereIterator it2 = spheres.begin(); it2 != spheres.end(); it2++) {
-                    Sphere *otherSphere = *it2;
+                Sphere *otherSphere = *it2;
 
                 if (otherSphere == sphere) {
                     continue;

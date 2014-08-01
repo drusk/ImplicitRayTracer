@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "vector3d.h"
 
 #include <iostream>
 
@@ -7,7 +7,7 @@
 #include "ppmwriter.h"
 #include "raytracer.h"
 #include "sphere.h"
-#include "vector.h"
+#include "vector3d.h"
 
 void CreateScene(RayTracer &rayTracer)
 {

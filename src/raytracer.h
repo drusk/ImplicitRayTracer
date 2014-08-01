@@ -6,7 +6,7 @@
 #include "image.h"
 #include "ray.h"
 #include "sphere.h"
-#include "vector.h"
+#include "vector3d.h"
 
 class RayTracer
 {

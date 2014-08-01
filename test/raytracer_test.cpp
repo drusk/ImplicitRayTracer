@@ -1,7 +1,7 @@
 #include "ray.h"
 #include "raytracer.h"
 #include "sphere.h"
-#include "vector.h"
+#include "vector3d.h"
 
 #include "gtest/gtest.h"
 

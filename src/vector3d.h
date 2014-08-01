@@ -1,5 +1,5 @@
-#ifndef VECTOR_H_
-#define VECTOR_H_
+#ifndef VECTOR3D_H_
+#define VECTOR3D_H_
 
 class Vector3D
 {
