@@ -34,3 +34,17 @@ std::vector<Vector3D> Box::GetCornerPoints()
     
     return corners;
 }
+
+Vector3D Box::GetMinPoint()
+{
+    double halfLength = sideLength / 2;
+    return Vector3D(center.GetX() - halfLength, center.GetY() - halfLength, 
+            center.GetZ() - halfLength);
+}
+
+Vector3D Box::GetMaxPoint()
+{
+    double halfLength = sideLength / 2;
+    return Vector3D(center.GetX() + halfLength, center.GetY() + halfLength, 
+            center.GetZ() + halfLength);
+}

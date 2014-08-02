@@ -30,6 +30,16 @@ public:
      */
     std::vector<Vector3D> GetCornerPoints();
     
+    /**
+     * Returns the minimum point of this box.
+     */
+    Vector3D GetMinPoint();
+    
+    /**
+     * Returns the maximum point of this box.
+     */
+    Vector3D GetMaxPoint();
+    
 private:
     Vector3D center;
     double sideLength;

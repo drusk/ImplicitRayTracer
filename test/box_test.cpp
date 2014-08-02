@@ -40,3 +40,23 @@ TEST(BoxTest, GetCornerPoints)
     AssertContainsPoint(corners, Vector3D(2, 2, 0));
     AssertContainsPoint(corners, Vector3D(2, 2, 2));
 }
+
+TEST(BoxTest, MinPoint)
+{
+    Box box(Vector3D(1, 1, 1), 3);
+    
+    Vector3D minPoint = box.GetMinPoint();
+    EXPECT_DOUBLE_EQ(-0.5, minPoint.GetX());
+    EXPECT_DOUBLE_EQ(-0.5, minPoint.GetY());
+    EXPECT_DOUBLE_EQ(-0.5, minPoint.GetZ());
+}
+
+TEST(BoxTest, MaxPoint)
+{
+    Box box(Vector3D(1, 1, 1), 3);
+    
+    Vector3D maxPoint = box.GetMaxPoint();
+    EXPECT_DOUBLE_EQ(2.5, maxPoint.GetX());
+    EXPECT_DOUBLE_EQ(2.5, maxPoint.GetY());
+    EXPECT_DOUBLE_EQ(2.5, maxPoint.GetZ());
+}
