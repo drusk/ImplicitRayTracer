@@ -23,18 +23,22 @@ bool SpacePruner::IsStraddling(Box box)
 {
     std::vector<Vector3D> corners = box.GetCornerPoints();
     
-    int insideCount = 0;
-    int outsideCount = 0;
+    bool hasInside = false;
+    bool hasOutside = false;
     
     for (std::size_t i = 0; i < corners.size(); i++) {
         double fieldValue = surface->ImplicitFunction(corners[i]);
         
         if (fieldValue < 0) {
-            insideCount++;
+            hasInside = true;
         } else if (fieldValue > 0) {
-            outsideCount++;
+            hasOutside = true;
+        }
+        
+        if (hasInside && hasOutside) {
+            return true;
         }
     }
     
-    return insideCount > 0 && outsideCount > 0;
+    return false;
 }
