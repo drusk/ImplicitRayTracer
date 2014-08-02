@@ -1,6 +1,8 @@
 #ifndef BOX_H
 #define	BOX_H
 
+#include <vector>
+
 #include "vector3d.h"
 
 /**
@@ -22,6 +24,11 @@ public:
      * Returns the side length of the box.
      */
     double GetSideLength();
+    
+    /**
+     * Returns the 8 corner points of this "box".
+     */
+    std::vector<Vector3D> GetCornerPoints();
     
 private:
     Vector3D center;
