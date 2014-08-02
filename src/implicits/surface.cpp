@@ -5,6 +5,13 @@ ImplicitSphere::ImplicitSphere(Vector3D center, double radius)
 {
 }
 
+Box ImplicitSphere::BoundingBox()
+{
+    // The scale factor is arbitrary, it just needs to be > 2 so that the 
+    // box is slightly larger than the sphere.
+    return Box(center, 2.1 * radius);
+}
+
 double ImplicitSphere::ImplicitFunction(Vector3D point)
 {
     return (point - center).LengthSquared() - radius * radius;

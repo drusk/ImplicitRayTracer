@@ -28,6 +28,20 @@ TEST(ImplicitSphereTest, ImplicitFunctionBorder)
     EXPECT_DOUBLE_EQ(0.0, sphere.ImplicitFunction(Vector3D(1, 1, 3)));
 }
 
+TEST(ImplicitSphereTest, BoundingBox)
+{
+    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    
+    Box box = sphere.BoundingBox();
+    
+    Vector3D center = box.GetCenter();
+    EXPECT_DOUBLE_EQ(1.0, center.GetX());
+    EXPECT_DOUBLE_EQ(1.0, center.GetY());
+    EXPECT_DOUBLE_EQ(1.0, center.GetZ());
+    
+    EXPECT_TRUE(box.GetSideLength() > 4.0);
+}
+
 TEST(ImplicitSphereTest, Lipschitz)
 {
     ImplicitSphere sphere(Vector3D(1, 1, 1), 2);

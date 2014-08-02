@@ -1,6 +1,7 @@
 #ifndef SURFACE_H
 #define	SURFACE_H
 
+#include "implicits/box.h"
 #include "ray.h"
 #include "vector3d.h"
 
@@ -12,6 +13,12 @@
 class ImplicitSurface
 {
 public:
+    /**
+     * Returns a bounding box around this surface.  It does not have to be
+     * the minimal bounding box.
+     */
+    virtual Box BoundingBox() = 0;
+    
     /**
      * Returns the value of the implicit function that defines this surface
      * at the specified point in space.
@@ -37,6 +44,7 @@ class ImplicitSphere : public ImplicitSurface
 public:
     ImplicitSphere(Vector3D center, double radius);
     
+    virtual Box BoundingBox();
     virtual double ImplicitFunction(Vector3D point);
     virtual double LipschitzConstant(Vector3D minPoint, Vector3D maxPoint);
     virtual double GradLipschitzConstant(Ray ray, double t1, double t2);
