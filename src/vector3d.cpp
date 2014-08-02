@@ -40,7 +40,12 @@ double Vector3D::DotProduct(const Vector3D &otherVector) const
 
 double Vector3D::Length()
 {
-    return sqrt(pow(GetX(), 2) + pow(GetY(), 2) + pow(GetZ(), 2));
+    return sqrt(LengthSquared());
+}
+
+double Vector3D::LengthSquared()
+{
+    return pow(GetX(), 2) + pow(GetY(), 2) + pow(GetZ(), 2);
 }
 
 void Vector3D::Normalize()

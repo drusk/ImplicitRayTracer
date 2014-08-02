@@ -41,6 +41,12 @@ TEST(VectorTest, Length)
     EXPECT_NEAR(6.708203932, vector2.Length(), absError);
 }
 
+TEST(VectorTest, LengthSquared)
+{
+    Vector3D vector(-5.0, 4.0, 2.0);
+    EXPECT_DOUBLE_EQ(45.0, vector.LengthSquared());
+}
+
 TEST(VectorTest, NormalizeZeroVector)
 {
     Vector3D zeroVector;

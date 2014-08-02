@@ -45,6 +45,11 @@ public:
 	 */
 	double Length();
 
+    /**
+	 * Returns the length (magnitude) squared of the vector from the origin.
+	 */
+	double LengthSquared();
+    
 	/**
 	 * Normalize the vector in-place to become a unit vector.
 	 */
