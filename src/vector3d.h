@@ -8,6 +8,11 @@ public:
 	 * Constructs a vector where all of the components are 0.
 	 */
 	Vector3D();
+    
+    /**
+     * Constructs a vector where all of the components have the same value.
+     */
+    Vector3D(double value);
 
 	/**
 	 * Constructs a vector with the specified values (X, Y, Z).

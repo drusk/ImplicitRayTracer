@@ -11,6 +11,16 @@ TEST(VectorTest, ConstructEmptyGetValues)
     EXPECT_DOUBLE_EQ(0, vector.GetZ());
 }
 
+TEST(VectorTest, ConstructConstantValue)
+{
+    double value = 5.0;
+    Vector3D vector(value);
+
+    EXPECT_DOUBLE_EQ(value, vector.GetX());
+    EXPECT_DOUBLE_EQ(value, vector.GetY());
+    EXPECT_DOUBLE_EQ(value, vector.GetZ());
+}
+
 TEST(VectorTest, DotProduct)
 {
     Vector3D vector1(1.0, 2.0, 3.0);
