@@ -53,14 +53,26 @@ TEST(SpacePrunerTest, IsNotStraddlingOutside)
 //    TestSurface surface;
 //    SpacePruner pruner(&surface);
 //    
-//    Octree *octree = pruner.Prune(2);
+//    Octree *octree = pruner.Prune(1);
 //    
-//    EXPECT_FALSE(octree->GetChild(0)->IsAccepted());
-//    EXPECT_TRUE(octree->GetChild(1)->IsAccepted());
-//    EXPECT_FALSE(octree->GetChild(2)->IsAccepted());
-//    EXPECT_TRUE(octree->GetChild(3)->IsAccepted());
-//    EXPECT_FALSE(octree->GetChild(4)->IsAccepted());
-//    EXPECT_TRUE(octree->GetChild(5)->IsAccepted());
-//    EXPECT_FALSE(octree->GetChild(6)->IsAccepted());
-//    EXPECT_TRUE(octree->GetChild(7)->IsAccepted());
+//    EXPECT_TRUE(octree->GetChild(0)->IsRejected());
+////    Octree *child1 = octree->GetChild(1);
+//    EXPECT_TRUE(octree->GetChild(2)->IsRejected());
+////    Octree *child3 = octree->GetChild(3);
+//    EXPECT_TRUE(octree->GetChild(4)->IsRejected());
+////    Octree *child5 = octree->GetChild(5);
+//    EXPECT_TRUE(octree->GetChild(6)->IsRejected());
+////    Octree *child7 = octree->GetChild(7);
+//
+////    EXPECT_TRUE(child1->GetChild(0))
+////
+////    EXPECT_TRUE(octree->)
+////    EXPECT_FALSE(octree->GetChild(0)->IsAccepted());
+////    EXPECT_TRUE(octree->GetChild(1)->IsAccepted());
+////    EXPECT_FALSE(octree->GetChild(2)->IsAccepted());
+////    EXPECT_TRUE(octree->GetChild(3)->IsAccepted());
+////    EXPECT_FALSE(octree->GetChild(4)->IsAccepted());
+////    EXPECT_TRUE(octree->GetChild(5)->IsAccepted());
+////    EXPECT_FALSE(octree->GetChild(6)->IsAccepted());
+////    EXPECT_TRUE(octree->GetChild(7)->IsAccepted());
 //}

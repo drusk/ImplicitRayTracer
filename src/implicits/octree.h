@@ -4,10 +4,10 @@
 #include "implicits/box.h"
 #include "vector3d.h"
 
-static const int NUM_CHILDREN = 8;
-
 class Octree {
 public:
+    static const int NUM_CHILDREN = 8;
+    
     /**
      * Constructs a new octree centered at the origin and with half
      * width/height/depth as defined by the halfDimension vector.
@@ -49,18 +49,42 @@ public:
     bool IsAccepted();
     
     /**
+     * Indicate that no part of the surface is contained in this tree's cube.
+     */
+    void Reject();
+    
+    /**
+     * Returns true if this tree has been rejected (has no part of the
+     * surface).
+     */
+    bool IsRejected();
+    
+    /**
+     * TODO: remove now that we have GetBox()?
      * Returns the center point of the box for this subtree.
      */
     Vector3D GetCenter();
     
     /**
+     * TODO: remove now that we have GetBox()?
      * Returns the side length of the box formed by this tree.
      */
     double GetSideLength();
     
+    /**
+     * Returns true if there are no children.
+     */
+    bool IsLeaf();
+    
+    /**
+     * Get the box that this octree comprises.
+     */
+    Box GetBox();
+    
 private:
     Box box;
     bool accepted;
+    bool rejected;
 
     Vector3D halfDimension;
     

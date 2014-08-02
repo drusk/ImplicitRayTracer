@@ -4,7 +4,8 @@
 #include <stdexcept>
 
 Octree::Octree(Box box)
-    : box(box), accepted(false), halfDimension(box.GetSideLength() / 2)
+    : box(box), accepted(false), rejected(false),
+      halfDimension(box.GetSideLength() / 2)
 {
     // Initially no children.
     for (int i = 0; i < NUM_CHILDREN; i++) {
@@ -72,6 +73,16 @@ bool Octree::IsAccepted()
     return accepted;
 }
 
+void Octree::Reject()
+{
+    rejected = true;
+}
+
+bool Octree::IsRejected()
+{
+    return rejected;
+}
+
 Vector3D Octree::GetCenter()
 {
     return box.GetCenter();
@@ -80,4 +91,14 @@ Vector3D Octree::GetCenter()
 double Octree::GetSideLength()
 {
     return box.GetSideLength();
+}
+
+bool Octree::IsLeaf()
+{
+    return children[0] == NULL;
+}
+
+Box Octree::GetBox()
+{
+    return box;
 }

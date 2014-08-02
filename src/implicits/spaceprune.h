@@ -24,6 +24,8 @@ public:
     
 private:
     ImplicitSurface *surface;
+    
+    void ProcessBox(Octree *tree);
 };
 
 #endif
