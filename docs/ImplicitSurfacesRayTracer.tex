@@ -22,7 +22,7 @@
 
 \begin{abstract}
 
-Write abstract here. \cite{Jobs95}
+Write abstract here. \cite{KalraBarr1989}
 
 \end{abstract}
 
@@ -49,7 +49,7 @@ Write background here.
 
 Write methodology here.
 
-\section{Interface}
+\section{User Interface}
 
 Write interface description here.
 
@@ -75,7 +75,27 @@ Write conclusion here.
 
 \section{Future Work}
 
-Write about future work here.
+A major area of future work is calculating the Lipschitz constants L and G
+for other useful implicit functions.  Kalra and Barr \cite{KalraBarr1989} 
+mention a forthcoming report with additional Lipschitz constants, but to
+our knowledge no report was ever published.  This will allow new types of
+surfaces to be rendered, and greatly increase the utility of implicit 
+surfaces for modelling when using ray tracing.
+
+Future development of the application could add support for blending surfaces
+which are close to each other.  A simple two-dimensional example of this concept
+is shown below.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1.5in]{figures/blend2d.png}
+  \caption{Two-dimensional blend of two circles.}
+\end{figure}
+
+Adding constructive solid geometry (CSG) operations would also be useful
+for modelling more advanced structures.  CSG combines primitives like 
+spheres and cylinders by using the boolean set operations union,
+intersection and difference.
 
 \bibliographystyle{acmsiggraph}
 \bibliography{ImplicitSurfacesRayTracer}
