@@ -93,7 +93,13 @@ transparency.
 
 \section{Conclusion}
 
-Write conclusion here.
+An implicit surface ray tracer was developed from scratch with no external
+dependencies.  It uses the techniques of Kalra and Barr \cite{KalraBarr1989}
+to find guaranteed ray intersections with the implicit surfaces.  This is done
+by using two values: "L" which is an upper limit on the rate the implicit
+function changes at, and "G" which is an upper limit on the rate the gradient
+changes at.  This is significant because it opens up ray tracing as an 
+alternative to polygonization when rendering implicit surfaces.
 
 \section{Future Work}
 
