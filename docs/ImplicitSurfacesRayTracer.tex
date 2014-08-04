@@ -39,15 +39,103 @@ Write abstract here. \cite{KalraBarr1989}
 
 \section{Introduction}
 
-Write introduction here.
+Implicit surfaces...
 
 \section{Background}
 
-Write background here.
+-what others have done
 
 \section{Methodology}
 
-Write methodology here.
+This section will give some background information about ray tracing,
+implicit surfaces, and LG surfaces, which will be useful for 
+understanding the algorithms used in this project.
+
+\subsection{Ray Tracing}
+
+Rendering three-dimensional objects is a fundamental task in computer 
+graphics.  The goal is to take a scene of three-dimensional objects 
+and produce a two-dimensional image showing the objects as viewed
+from a specific location.  In particular, the input is a set of 
+objects and the output is an array of pixels.
+
+There are two ways to consider how each object contributes to each 
+pixel: object-ordered rendering and image-ordered rendering.  In
+object-ordered rendering iteration is over the objects, and for
+each object all the influenced pixels are found and updated.  In
+image-ordered rendering iteration is over the pixels, and for each
+pixel the objects that affect it are found and used to calculate
+that pixel's value.
+
+Ray tracing is an image-ordered rendering technique.  For each pixel
+it follows these steps:
+\begin{enumerate}
+	\item Compute the ray from the camera to the current pixel.
+	\item Find the first object the ray intersects.
+	\item Use the intersection point, the object's surface normal at that
+	point, and any lighting, to calculate the pixel value.
+\end{enumerate}
+
+For more reading about ray tracing, see 
+
+\subsection{Implicit Surfaces}
+
+Implicit surfaces are a method for modelling objects using an equation
+where the function is set to equal 0.  For example, here is the 
+equation describing a sphere:
+
+\begin{equation}
+f(x, y, z) = x^2 + y^2 + z^2 - r^2 = 0
+\end{equation}
+
+In this case the value of the function will be negative inside the 
+sphere, positive outside, and 0 on the boundary.
+
+In order to render the implicit surface, points in space are sampled
+to see whether they are inside, outside, or on the border.  This process
+is expensive to evaluate, but it has some advantages.  For more information,
+see Shirley et al. \cite{Shirley}.
+
+\subsection{LG Surfaces}
+
+Kalra and Barr \cite{KalraBarr1989} point out that it is not possible to
+guarantee correct intersection of a ray with an arbitrary implicit surface
+just using evaluation of the implicit function at sampled points in space.
+This is because if the sampling is not fine grained enough, features that
+are smaller than the distance between samples will be missed.
+
+Therefore, extra information is needed to guarantee the intersections.
+Kalra and Barr use Lipschitz constants to put bounds
+on the net rate of change of the implicit function and its derivative along
+the direction of the ray.
+
+A Lipschitz constant is a constant that satisfies the following inequality:
+\begin{equation}
+||f(x_1) - f(x_2)|| < LipschitzConstant * ||x_1 - x_2||
+\end{equation}
+
+Let f(x) be the implicit function, and let a ray be defined by its direction 
+and origin as follows:
+\begin{equation}
+x = \alpha * t + \beta
+\end{equation}
+
+Then the implicit function's value along the ray is:
+\begin{equation}
+F(t) = f(\alpha * t + \beta)
+\end{equation}
+
+The derivative of the original implicit function along the ray direction is 
+then:
+\begin{equation}
+g(t) = dF/dt
+\end{equation}
+
+Then let L be the Lipschitz constant for f(x), and let G be the Lipschitz
+constant for g(t).  Using this background information, an LG surface can
+then be defined as an implicit function where L and G exist and can be
+computed.  Kalra and Barr's algorithm guarantees correct ray intersections
+for LG surfaces.
 
 \section{User Interface}
 
