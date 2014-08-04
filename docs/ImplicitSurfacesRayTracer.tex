@@ -64,7 +64,14 @@ itself.  These algorithms will be explained in detail in section
 
 \section{Background}
 
--what others have done
+Real time ray tracing of implicit surfaces has also become an active
+area of research recently.  Singh and Narayanan \cite{RealTimeGPU} 
+have developed a GPU-based real time implicit surface ray tracer.
+Knoll et al. \cite{RealTimeIntervals} have developed 
+a real time implicit surface ray tracer using SIMD optimized interval 
+arithmetic and coherent ray traversal.  They claim it is able to
+render any programmable implicit function based only on its definition
+in real time without special hardware.
 
 \section{Methodology}
 
@@ -162,13 +169,8 @@ for LG surfaces.
 
 The current implementation does not have an interactive graphical user 
 interface because ray tracers generally are not used in real time,
-though that is an active area of research.  For example, Singh and 
-Narayanan \cite{RealTimeGPU} have developed a GPU-based real time implicit 
-surface ray tracer, and Knoll et al. \cite{RealTimeIntervals} have developed 
-a real time implicit surface ray tracer using SIMD optimized interval 
-arithmetic and coherent ray traversal.
-
-Instead of a graphical interface, the application is run from the command line with constant 
+though that is an active area of research (see references in the Background
+section).  Instead the application is run from the command line with constant 
 parameters such as image dimensions defined in a special header file.
 The scene to be rendered is also currently specified directly in the 
 code.  This is less than ideal because it requires recompiling the project to 
