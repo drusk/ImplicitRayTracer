@@ -162,8 +162,10 @@ for LG surfaces.
 
 The current implementation does not have an interactive graphical user 
 interface because ray tracers generally are not used in real time,
-though that is an active area of research.  
-Instead the application is run from the command line with constant 
+though that is an active area of research.  For example, see Singh and 
+Narayanan's \cite{RealTime} GPU-based real time implicit surface ray tracer.
+
+Instead of a graphical interface, the application is run from the command line with constant 
 parameters such as image dimensions defined in a special header file.
 The scene to be rendered is also currently specified directly in the 
 code.  This is less than ideal because it requires recompiling the project to 
