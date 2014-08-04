@@ -64,6 +64,25 @@ itself.  These algorithms will be explained in detail in section
 
 \section{Background}
 
+As mentioned in the introduction, this project mainly implements the
+techniques of Kalra and Barr \cite{KalraBarr1989}.  However, there have
+been many other publications in this area, so a brief overview of some
+of them will be given here.
+
+Mitchell \cite{MitchellIntervals} proposed using interval arithmetic 
+in order to find intersections reliably using two steps: root isolation
+and then root refinement.  Many other authors worked on improving
+performance, such as Capriani et al. \cite{CaprianiIntervals} and
+Florez et al. \cite{FlorezIntervals}.
+
+Implicit surfaces have not been heavily utilized despite their advantages,
+mainly because they are expensive to compute.  Therefore, much research
+has gone into improving computation speeds.  deGroot and Wyvill
+\cite{deGrootWyvill} developed an algorithm called Rayskip which
+exploits object space coherence and temporal coherence to reduce the
+number of implicit function evaluations while ray tracing, thereby
+improving rendering times.
+
 Real time ray tracing of implicit surfaces has also become an active
 area of research recently.  Singh and Narayanan \cite{RealTimeGPU} 
 have developed a GPU-based real time implicit surface ray tracer.
@@ -71,7 +90,8 @@ Knoll et al. \cite{RealTimeIntervals} have developed
 a real time implicit surface ray tracer using SIMD optimized interval 
 arithmetic and coherent ray traversal.  They claim it is able to
 render any programmable implicit function based only on its definition
-in real time without special hardware.
+in real time without special hardware, on the CPU.  They also developed
+a similar algorithm for use on the GPU \cite{RealTimeIntervals2}.
 
 \section{Methodology}
 
