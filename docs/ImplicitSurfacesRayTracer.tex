@@ -51,7 +51,18 @@ Write methodology here.
 
 \section{User Interface}
 
-Write interface description here.
+The current implementation does not have an interactive graphical user 
+interface because ray tracers generally are not used in real time,
+though that is an active area of research.  
+Instead the application is run from the command line with constant 
+parameters such as image dimensions defined in a special header file.
+The scene to be rendered is also currently specified directly in the 
+code.  This is less than ideal because it requires recompiling the project to 
+change the scene.  Some domain specific language should be developed
+for specifying the scene, which the application can parse and
+use to build the scene.  It should also be possible to pass arguments
+on the command line to change the different parameters like
+image dimensions.
 
 \section{Data Structures}
 
