@@ -22,7 +22,10 @@
 
 \begin{abstract}
 
-Write abstract here. \cite{KalraBarr1989}
+A ray tracer for rendering implicit surfaces was developed from scratch.
+It guarantees ray intersections will be found by requiring upper 
+bounds L and G, which limit the rates of change of the implicit function 
+and its derivative, respectively.
 
 \end{abstract}
 
@@ -39,7 +42,25 @@ Write abstract here. \cite{KalraBarr1989}
 
 \section{Introduction}
 
-Implicit surfaces...
+Implicit surfaces are a method for modelling objects using an equation
+where the function is set to equal 0.  There are two ways in which to
+render these surfaces: polygonization and ray tracing.  Polygonization
+involves breaking down the surface into polygons and rendering them, 
+while ray tracing calculates the values of the pixels in the image
+one-by-one.  This project investigates using the second technique, 
+ray tracing, for rendering implicit surfaces.
+
+The challenge when ray tracing implicit surfaces is reliably finding
+ray intersections with the surface.  The techniques of Kalra and
+Barr \cite{KalraBarr1989} were used to guarantee the success of this
+process, as long as upper bounds on the net rate of change of the 
+implicit function and its derivative are known.  
+
+Kalra and Barr describe two steps to their algorithm.  The first is a
+space pruning algorithm which narrows down the search space for 
+ray intersections.  The second is the ray intersection algorithm 
+itself.  These algorithms will be explained in detail in section 
+\ref{sec:Algorithms}.
 
 \section{Background}
 
@@ -76,7 +97,7 @@ it follows these steps:
 	point, and any lighting, to calculate the pixel value.
 \end{enumerate}
 
-For more reading about ray tracing, see 
+For more reading about ray tracing, see Shirley et al. \cite{Shirley}.
 
 \subsection{Implicit Surfaces}
 
@@ -157,6 +178,7 @@ image dimensions.
 Write data structures description here.
 
 \section{Algorithms}
+\label{sec:Algorithms}
 
 Write algorithms description here.
 
