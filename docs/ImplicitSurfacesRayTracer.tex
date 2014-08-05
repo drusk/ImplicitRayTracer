@@ -386,6 +386,48 @@ implicit surface.
 \subsection{Ray Intersection}
 \label{sec:RayIntersection}
 
+The second algorithm from Kalra and Barr is the ray intersection algorithm 
+itself.  From the space pruning algorithm, a set of boxes that completely 
+encloses the surface have already been found.  Therefore all intersections
+of rays and the surface will occur in the volume of this set of boxes.
+
+The basic idea is to find the closest box to the ray origin (along the 
+direction of the ray), then compute the intersection in this box.  If 
+there is no intersection, the next nearest box is checked.  Finding 
+the closest box is aided by keeping the boxes in an octree as
+discussed in section \ref{sec:Octree}.
+
+Let $t_1$ and $t_2$ be two points along the ray (see definition of ray
+in equation \ref{eq:ray}).  Then $t_m = (t_1 + t_2) / 2$ and 
+$d = (t_2 - t_1) / 2$.  
+$F$ is as defined in equation \ref{eq:F} and $g(t)$ is defined as in 
+equation \ref{eq:g}.  Recall that $G$ is the Lipschitz constant for $g(t)$.
+
+\begin{equation}
+\label{eq:GConstraint}
+||g(t_m)|| > G * d
+\end{equation}
+
+If $F(t_1)$ and $F(t_2)$ have opposite signs and the constraint in 
+equation \ref{eq:GConstraint} is met, then there is exactly one 
+intersection between $t_1$ and $t_2$ and it can be calculated with
+a numerical method such as Newton's method.
+
+If $F(t_1)$ and $F(t_2)$ have the same sign and the constraint in
+equation \ref{eq:GConstraint} is met, then there is no intersection
+between $t_1$ and $t_2$.  Therefore the next box is considered,
+and if there are no more boxes, it can be concluded that the ray
+does not hit a surface.
+
+There is one more case to consider: when the constraint in equation
+\ref{eq:GConstraint} is not met.  Then the interval is subdivided into
+intervals [$t_1$, $t_m$] and [$t_m$, $t_2$], and they are tested.
+This condition can occur when there is more than one intersection
+in the box.
+
+Subdividing stops when the interval distance $d$ falls below the
+tolerance of the numerical method used to compute the intersection.
+
 \section{Implementation}
 
 There are many open source ray tracers available on the internet.  However, 
