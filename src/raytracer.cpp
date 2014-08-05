@@ -74,19 +74,13 @@ bool RayTracer::IntersectObject(Ray ray, Sphere **intersectedObject,
     for (SphereIterator it = scene.begin(); it != scene.end(); it++) {
         Sphere *sphere = *it;
 
-        double nearPoint = INFINITY;
-        double farPoint = INFINITY;
+        double distance = INFINITY;
 
-        if (sphere->Intersect(ray, &nearPoint, &farPoint)) {
+        if (sphere->Intersect(ray, &distance)) {
             hasIntersection = true;
 
-            if (nearPoint < 0) {
-                /* Transparency doesn't work without this. */
-                nearPoint = farPoint;
-            }
-
-            if (nearPoint < nearestIntersection) {
-                nearestIntersection = nearPoint;
+            if (distance < nearestIntersection) {
+                nearestIntersection = distance;
                 nearestIntersectedObject = sphere;
             }
         }
@@ -148,12 +142,11 @@ Vector3D RayTracer::CalculateIlluminationFromLightSources(
                     continue;
                 }
 
-                double nearPoint;
-                double farPoint;
+                double distance;
 
                 if (otherSphere->Intersect(
                         Ray(intersectionPoint + normal * bias, lightDirection),
-                        &nearPoint, &farPoint)) {
+                        &distance)) {
                     transmission = Vector3D(0.0, 0.0, 0.0);
                     break;
                 }

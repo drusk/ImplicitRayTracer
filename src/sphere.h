@@ -1,6 +1,7 @@
 #ifndef SPHERE_H_
 #define SPHERE_H_
 
+#include "intersecter.h"
 #include "ray.h"
 #include "vector3d.h"
 
@@ -10,6 +11,8 @@ public:
 	Sphere(Vector3D center, double radius, Vector3D surfaceColour,
 			double reflectivity, double transparency);
 
+    ~Sphere();
+    
 	/**
 	 * Returns the center point of the object.
 	 */
@@ -40,11 +43,10 @@ public:
 	/**
 	 * Computes the intersection of the ray with this sphere.  Returns
 	 * true if there is an intersection, false otherwise.  If there is
-	 * an intersection, the nearPoint and farPoint parameters are used
-	 * to return the distance along the ray at which the intersections
-	 * occur.
+	 * an intersection, the parameter distance is used to return the
+     * distance along the ray to the first intersection.
 	 */
-	bool Intersect(Ray ray, double *nearPoint, double *farPoint);
+	bool Intersect(Ray ray, double *distance);
 
 	/**
 	 * Returns the normal of this object at the intersection point provided.
@@ -73,13 +75,15 @@ public:
 private:
 	Vector3D center;
 	double radius;
-	double radiusSquared;
+
 	Vector3D surfaceColour;
 	double reflectivity;
 	double transparency;
 
 	bool isLightSource;
 	Vector3D emissionColour;
+    
+    RayIntersecter *rayIntersecter;
 };
 
 #endif
