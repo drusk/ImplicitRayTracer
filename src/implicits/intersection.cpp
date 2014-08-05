@@ -4,6 +4,9 @@
 
 #include <algorithm>
 
+#include "defaults.h"
+#include "implicits/spaceprune.h"
+
 BoxIntersection::BoxIntersection(Box box, Ray ray, double tNear, double tFar)
     : box(box), ray(ray), tNear(tNear), tFar(tFar)
 {
@@ -34,8 +37,16 @@ bool BoxIntersection::operator<(const BoxIntersection &other) const
     return GetTNear() < other.GetTNear();
 }
 
-ImplicitRayIntersecter::ImplicitRayIntersecter(ImplicitSurface *implicitSurface, 
-        Octree *octree)
+ImplicitRayIntersecter::ImplicitRayIntersecter(
+        ImplicitSurface *implicitSurface)
+    : implicitSurface(implicitSurface)
+{
+    SpacePruner pruner(implicitSurface);
+    octree = pruner.Prune(defaults::OCTREE_PRUNING_LEVEL);
+}
+
+ImplicitRayIntersecter::ImplicitRayIntersecter(
+        ImplicitSurface *implicitSurface, Octree *octree)
     : implicitSurface(implicitSurface), octree(octree)
 {
 }

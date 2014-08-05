@@ -38,6 +38,12 @@ class ImplicitRayIntersecter : public RayIntersecter
 {
 public:
     /**
+     * Constructs the ray intersecter for the implicit surface, first
+     * building an octree.
+     */
+    ImplicitRayIntersecter(ImplicitSurface *implicitSurface);
+    
+    /**
      * Constructs the ray intersecter for the implicit surface contained
      * in the provided octree.
      */

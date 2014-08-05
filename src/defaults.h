@@ -1,6 +1,8 @@
 #ifndef DEFAULTS_H
 #define	DEFAULTS_H
 
+#include <string>
+
 namespace defaults
 {
     const int IMAGE_WIDTH = 640;
@@ -13,6 +15,8 @@ namespace defaults
     const Vector3D BACKGROUND_COLOUR(2.0, 2.0, 2.0);
 
     const std::string OUTPUT_FILENAME = "output.ppm";
+    
+    const int OCTREE_PRUNING_LEVEL = 4;
 }
 
 #endif
