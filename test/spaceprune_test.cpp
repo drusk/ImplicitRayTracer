@@ -6,11 +6,11 @@
 #include "implicits/surface.h"
 #include "vector3d.h"
 
-class TestSurface : public ImplicitSphere
+class TestSurface : public SphereSurface
 {
 public:
     TestSurface()
-        : ImplicitSphere(Vector3D(0, 0, 0.75), 0.5)
+        : SphereSurface(Vector3D(0, 0, 0.75), 0.5)
     {
     }
 

@@ -51,10 +51,10 @@ public:
 };
 
 
-class ImplicitSphere : public ImplicitSurface
+class SphereSurface : public ImplicitSurface
 {
 public:
-    ImplicitSphere(Vector3D center, double radius);
+    SphereSurface(Vector3D center, double radius);
     
     virtual Box BoundingBox();
     virtual double ImplicitFunction(Vector3D point);

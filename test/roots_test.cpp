@@ -7,7 +7,7 @@
 
 TEST(NewtonRootFinderTest, FindIntersection)
 {
-    ImplicitSphere surface(Vector3D(0), 1);
+    SphereSurface surface(Vector3D(0), 1);
     
     NewtonRootFinder rootFinder;
     Ray ray(Vector3D(3, 0, 0), Vector3D(-1, 0, 0));

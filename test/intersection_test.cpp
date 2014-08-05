@@ -68,7 +68,7 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
     Ray ray(Vector3D(3, 0, 0), Vector3D(-1, 0, 0));
     BoxIntersection candidate(box, ray, 1, 3);
     
-    ImplicitSphere surface(Vector3D(0), 1);
+    SphereSurface surface(Vector3D(0), 1);
     RayIntersecter intersecter(&surface, NULL);
     double distance;
     
@@ -86,7 +86,7 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionNoIntersection)
     Ray ray(Vector3D(3, 3, 0), Vector3D(-1, 0, 0));
     BoxIntersection candidate(box, ray, 1, 3);
     
-    ImplicitSphere surface(Vector3D(0), 1);
+    SphereSurface surface(Vector3D(0), 1);
     RayIntersecter intersecter(&surface, NULL);
     double distance;
     

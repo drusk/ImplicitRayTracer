@@ -9,28 +9,28 @@
 
 TEST(ImplicitSphereTest, ImplicitFunctionInside)
 {
-    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
     
     EXPECT_TRUE(sphere.ImplicitFunction(Vector3D(0, 0, 0)) < 0);
 }
 
 TEST(ImplicitSphereTest, ImplicitFunctionOutside)
 {
-    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
     
     EXPECT_TRUE(sphere.ImplicitFunction(Vector3D(3, 3, 3)) > 0);
 }
 
 TEST(ImplicitSphereTest, ImplicitFunctionBorder)
 {
-    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
     
     EXPECT_DOUBLE_EQ(0.0, sphere.ImplicitFunction(Vector3D(1, 1, 3)));
 }
 
 TEST(ImplicitSphereTest, BoundingBox)
 {
-    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
     
     Box box = sphere.BoundingBox();
     
@@ -44,7 +44,7 @@ TEST(ImplicitSphereTest, BoundingBox)
 
 TEST(ImplicitSphereTest, Lipschitz)
 {
-    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
     Vector3D minPoint(-1, -1, -1);
     Vector3D maxPoint(3, 3, 3);
     
@@ -53,7 +53,7 @@ TEST(ImplicitSphereTest, Lipschitz)
 
 TEST(ImplicitSphereTest, LipschitzGrad)
 {
-    ImplicitSphere sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
     Ray ray(Vector3D(-5, -5, -5), Vector3D(1, 1, 1));
     
     EXPECT_DOUBLE_EQ(1.0, sphere.GradLipschitzConstant(ray, 0, 1));
@@ -61,7 +61,7 @@ TEST(ImplicitSphereTest, LipschitzGrad)
 
 TEST(ImplicitSphereTest, Gradient)
 {
-    ImplicitSphere sphere(Vector3D(1, 2, 1), 2);
+    SphereSurface sphere(Vector3D(1, 2, 1), 2);
     
     Vector3D grad = sphere.Gradient(Vector3D(2, 1, 3));
     EXPECT_DOUBLE_EQ(2.0, grad.GetX());
