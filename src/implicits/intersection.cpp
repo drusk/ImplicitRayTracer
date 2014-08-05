@@ -120,7 +120,7 @@ bool ImplicitRayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersec
     double maxGradChange = implicitSurface->GradLipschitzConstant(
             ray, t1, t2) * halfDistance;
     
-    if (abs(implicitSurface->DirectionalGradient(ray, tMid)) <= 
+    if (abs(implicitSurface->DirectionalGradient(ray, tMid)) >= 
             maxGradChange) {
         double F1 = implicitSurface->ImplicitFunction(ray.Follow(t1));
         double F2 = implicitSurface->ImplicitFunction(ray.Follow(t2));
