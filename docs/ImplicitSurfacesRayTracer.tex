@@ -22,10 +22,11 @@
 
 \begin{abstract}
 
-A ray tracer for rendering implicit surfaces was developed from scratch.
-It guarantees ray intersections will be found by requiring upper 
-bounds L and G, which limit the rates of change of the implicit function 
-and its derivative, respectively.
+A ray tracer for rendering implicit surfaces is developed.  It is
+written in C++ and uses no external libraries.  The implementation of the
+implicit surface ray tracer guarantees ray intersections will be found by 
+placing upper bounds on the rates of change of the implicit function 
+and its derivative.
 
 \end{abstract}
 
@@ -43,7 +44,8 @@ and its derivative, respectively.
 \section{Introduction}
 
 Implicit surfaces are a method for modelling objects using an equation
-where the function is set to equal 0.  There are two ways in which to
+where the surface function is set to equal 0 as in equation \ref{eq:sphere} 
+below.  There are two ways commonly used to
 render these surfaces: polygonization and ray tracing.  Polygonization
 involves breaking down the surface into polygons and rendering them, 
 while ray tracing calculates the values of the pixels in the image
@@ -56,10 +58,10 @@ Barr \cite{KalraBarr1989} were used to guarantee the success of this
 process, as long as upper bounds on the net rate of change of the 
 implicit function and its derivative are known.  
 
-Kalra and Barr describe two steps to their algorithm.  The first is a
+Kalra and Barr describe two steps to their method.  The first is a
 space pruning algorithm which narrows down the search space for 
 ray intersections.  The second is the ray intersection algorithm 
-itself.  These algorithms will be explained in detail in section 
+itself.  These algorithms will be explained in more detail in section 
 \ref{sec:Algorithms}.
 
 \section{Background}
@@ -72,10 +74,11 @@ of them will be given here.
 Mitchell \cite{MitchellIntervals} proposed using interval arithmetic 
 in order to find intersections reliably using two steps: root isolation
 and then root refinement.  Many other authors worked on improving
-performance, such as Capriani et al. \cite{CaprianiIntervals} and
+performance of the interval method, such as Capriani et al. \cite{CaprianiIntervals} and
 Florez et al. \cite{FlorezIntervals}.
 
-Implicit surfaces have not been heavily utilized despite their advantages,
+Implicit surfaces have not been heavily utilized despite their advantages
+(easy blending of surfaces, constructive solid geometry, collision detection),
 mainly because they are expensive to compute.  Therefore, much research
 has gone into improving computation speeds.  deGroot and Wyvill
 \cite{deGrootWyvill} developed an algorithm called Rayskip which
@@ -83,14 +86,14 @@ exploits object space coherence and temporal coherence to reduce the
 number of implicit function evaluations while ray tracing, thereby
 improving rendering times.
 
-Real time ray tracing of implicit surfaces has also become an active
-area of research recently.  Singh and Narayanan \cite{RealTimeGPU} 
+Recently real time ray tracing of implicit surfaces has also become an active
+area of research.  Singh and Narayanan \cite{RealTimeGPU} 
 have developed a GPU-based real time implicit surface ray tracer.
 Knoll et al. \cite{RealTimeIntervals} have developed 
 a real time implicit surface ray tracer using SIMD optimized interval 
 arithmetic and coherent ray traversal.  They claim it is able to
-render any programmable implicit function based only on its definition
-in real time without special hardware, on the CPU.  They also developed
+render any programmable implicit function based only on its definition,
+in real time on the CPU without special hardware.  They also developed
 a similar algorithm for use on the GPU \cite{RealTimeIntervals2}.
 
 \section{Methodology}
@@ -107,7 +110,7 @@ and produce a two-dimensional image showing the objects as viewed
 from a specific location.  In particular, the input is a set of 
 objects and the output is an array of pixels.
 
-There are two ways to consider how each object contributes to each 
+There are two common ways to consider how each object contributes to each 
 pixel: object-ordered rendering and image-ordered rendering.  In
 object-ordered rendering iteration is over the objects, and for
 each object all the influenced pixels are found and updated.  In
@@ -124,12 +127,12 @@ it follows these steps:
 	point, and any lighting, to calculate the pixel value.
 \end{enumerate}
 
-For more reading about ray tracing, see Shirley et al. \cite{Shirley}.
+For more information about ray tracing, see Shirley et al. \cite{Shirley}.
 
 \subsection{Implicit Surfaces}
 
 Implicit surfaces are a method for modelling objects using an equation
-where the function is set to equal 0.  For example, \ref{eq:sphere}
+where the surface function is set to equal 0.  For example, \ref{eq:sphere}
 describes a sphere.
 
 \begin{equation}
@@ -164,7 +167,7 @@ equation \ref{eq:lipschitz}.
 
 \begin{equation}
 \label{eq:lipschitz}
-||f(x_1) - f(x_2)|| < LipschitzConstant * ||x_1 - x_2||
+|f(x_1) - f(x_2)| < LipschitzConstant * |x_1 - x_2|
 \end{equation}
 
 Let $f(x)$ be the implicit function, and let a ray be defined by its 
@@ -172,7 +175,7 @@ direction $\alpha$ and origin $\beta$ as in equation \ref{eq:ray}.
 
 \begin{equation}
 \label{eq:ray}
-x = \alpha * t + \beta
+r(t) = \alpha * t + \beta
 \end{equation}
 
 Then the implicit function's value along the ray can be defined as in
@@ -243,12 +246,28 @@ public:
      */
     virtual double ImplicitFunction(
             Vector3D point) = 0;
+    /**
+     * Returns the gradient of the 
+     * implicit function that defines this 
+     * surface at the specified point in 
+     * space.
+     */
+    virtual Vector3D Gradient(
+            Vector3D point) = 0;
     
     /**
+     * Returns the gradient of the 
+     * implicit function in the direction
+     * of the ray, at the point t along 
+     * the ray.
+     */
+    virtual double DirectionalGradient(
+            Ray ray, double t) = 0;
+        
+    /**
      * Returns the Lipschitz constant for 
-     * this surface in the rectangular
-     * region defined by the minPoint and 
-     * maxPoint.
+     * this surface in the region defined 
+     * by the minPoint and maxPoint.
      */
     virtual double LipschitzConstant(
             Vector3D minPoint, 
@@ -270,7 +289,7 @@ public:
 \label{sec:Octree}
 
 The octree is a tree data structure where each node has up to eight 
-children.  It will be used in the space pruning algorithm described in
+children.  It is used in the space pruning algorithm described in
 section \ref{sec:SpacePruning}.  Each node in the tree represents a volume
 in space, and child nodes are subsections of this volume.  To create
 child nodes, the current node's volume is split into eight equal pieces.
@@ -290,15 +309,15 @@ the z-axis as well.
 
 The octree structure aids in finding the first box a ray intersects (needed 
 for the ray intersection algorithm given in section \ref{sec:RayIntersection}.
-This is because if it is discovered the box associated with a node does not
-intersect with the ray, then all of its children can be ignored because they
+This is because if it is discovered that the box associated with a node does not
+intersect with the ray, then all of its children can be ignored as they
 definitely will not intersect either.
 
 \section{Algorithms}
 \label{sec:Algorithms}
 
 This section describes the ray intersection method developed by
-Kalra and Barr \cite{KalraBarr1989}.  They break this method down into
+Kalra and Barr \cite{KalraBarr1989}.  They break their method down into
 two algorithms: space pruning and ray intersection.
 
 \subsection{Space Pruning}
@@ -353,7 +372,7 @@ the function peak in Figure ~\ref{fig:straddling_boxes}.
 If a box does not straddle the surface, some more calculations have to
 be performed in order to decide what to do with it.  First let us 
 define $x_{0}$ to be the center of the box, and $d$ to be the half-length
-of the principal diagonal of the box, as shown in Figure
+of the principal diagonal of the box, as shown in Figure \ref{fig:box}.
 
 \begin{figure}[ht]
   \centering
@@ -362,8 +381,8 @@ of the principal diagonal of the box, as shown in Figure
   \label{fig:box}
 \end{figure}
 
-Let $L$ be defined as in section \ref{sec:LGSurfaces}.  Essentially its
-the max rate of change of the implicit function $f(x)$.  
+Let $L$ be defined as in section \ref{sec:LGSurfaces}.  Essentially it is
+the maximum rate of change of the implicit function $f(x)$.  
 
 \begin{equation}
 \label{eq:LConstraint}
@@ -398,14 +417,14 @@ the closest box is aided by keeping the boxes in an octree as
 discussed in section \ref{sec:Octree}.
 
 Let $t_1$ and $t_2$ be two points along the ray (see definition of ray
-in equation \ref{eq:ray}).  Then $t_m = (t_1 + t_2) / 2$ and 
+in equation \ref{eq:ray}).  Then let $t_m = (t_1 + t_2) / 2$ and 
 $d = (t_2 - t_1) / 2$.  
 $F$ is as defined in equation \ref{eq:F} and $g(t)$ is defined as in 
 equation \ref{eq:g}.  Recall that $G$ is the Lipschitz constant for $g(t)$.
 
 \begin{equation}
 \label{eq:GConstraint}
-||g(t_m)|| > G * d
+|g(t_m)| > G * d
 \end{equation}
 
 If $F(t_1)$ and $F(t_2)$ have opposite signs and the constraint in 
@@ -431,13 +450,15 @@ tolerance of the numerical method used to compute the intersection.
 \section{Implementation}
 
 There are many open source ray tracers available on the internet.  However, 
-for pedagogical reasons it was decided to implement a simple ray tracer from 
-scratch.  This also made it easier to modify and adapt to support implicit
+for pedagogical reasons it was decided to implement a simple ray tracer that
+did not depend on external libraries.  
+This also made it easier to modify and adapt to support implicit
 surfaces because many of the open source ray tracers are part of larger 
-packages or have a lot of additional functionality.
+packages or have a lot of additional functionality which makes them 
+complicated to use.
 
-The implementation was done in C++ and used no external libraries.  Output 
-images were written to PPM \cite{PPM} files because the PPM format is 
+The implementation was done in C++.  Output 
+images were written to PPM files because the PPM format is 
 very simple and can be implemented trivially without external libraries.
 
 The project source code is available online at 
@@ -449,7 +470,7 @@ The system developed can currently render spheres with adjustable locations,
 radii, colours, reflectivity and transparency.  Figure \ref{fig:spheres} shows a
 simple example.  The ground is made using a sphere with a very large radius.
 The light source (not in the field of view) is also a sphere.  Except for the
-ground sphere, all of them are reflective.  Only the green sphere has some
+ground sphere, all of the spheres are reflective.  Only the green sphere has some
 transparency.
 
 \begin{figure}[ht]
@@ -464,9 +485,8 @@ transparency.
 An implicit surface ray tracer was developed from scratch with no external
 dependencies.  It uses the techniques of Kalra and Barr \cite{KalraBarr1989}
 to find guaranteed ray intersections with the implicit surfaces.  This is done
-by using two values: "L" which is an upper limit on the rate the implicit
-function changes at, and "G" which is an upper limit on the rate the gradient
-changes at.  This is significant because it opens up ray tracing as an 
+by using two values: "L" which is an upper limit on the rate of change of the implicit
+function, and "G" which is an upper limit on the rate of change of the gradient.  This is significant because it opens up ray tracing as an 
 alternative to polygonization when rendering implicit surfaces.
 
 \section{Future Work}
