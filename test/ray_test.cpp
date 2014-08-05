@@ -2,6 +2,8 @@
 
 #include "gtest/gtest.h"
 
+#include <cmath>
+
 #include "box.h"
 #include "vector3d.h"
 
@@ -62,4 +64,17 @@ TEST(RayTest, NoIntersect)
     double tFar;
 
     EXPECT_FALSE(ray.Intersects(box, &tNear, &tFar));
+}
+
+TEST(RayTest, IntersectsAtAngle)
+{
+    Box box(Vector3D(0), 2);
+    Ray ray(Vector3D(2, -1, 0), Vector3D(-1, 1, 0));
+    
+    double tNear;
+    double tFar;
+    
+    EXPECT_TRUE(ray.Intersects(box, &tNear, &tFar));
+    EXPECT_DOUBLE_EQ(sqrt(2), tNear);
+    EXPECT_DOUBLE_EQ(2 * sqrt(2), tFar);
 }
