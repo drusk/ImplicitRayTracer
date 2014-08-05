@@ -1,5 +1,5 @@
-#ifndef INTERSECTION_H
-#define	INTERSECTION_H
+#ifndef IMPLICITINTERSECTION_H
+#define	IMPLICITINTERSECTION_H
 
 #include <vector>
 
@@ -7,6 +7,7 @@
 #include "implicits/octree.h"
 #include "implicits/roots.h"
 #include "implicits/surface.h"
+#include "intersecter.h"
 #include "ray.h"
 #include "vector3d.h"
 
@@ -33,7 +34,7 @@ private:
 };
 
 
-class ImplicitRayIntersecter
+class ImplicitRayIntersecter : public RayIntersecter
 {
 public:
     /**
@@ -49,7 +50,7 @@ public:
      * return the distance along the ray at which the intersection
      * occurs.
      */
-    bool Intersect(Ray ray, double *distance);
+    virtual bool Intersect(Ray ray, double *distance);
     
     /**
      * Finds the ray intersection with the implicit surface within a box that
