@@ -145,6 +145,7 @@ is expensive to evaluate, but it has some advantages.  For more information,
 see Shirley et al. \cite{Shirley}.
 
 \subsection{LG Surfaces}
+\label{sec:LGSurfaces}
 
 Kalra and Barr \cite{KalraBarr1989} point out that it is not possible to
 guarantee correct intersection of a ray with an arbitrary implicit surface
@@ -162,7 +163,7 @@ A Lipschitz constant is a constant that satisfies the following inequality:
 ||f(x_1) - f(x_2)|| < LipschitzConstant * ||x_1 - x_2||
 \end{equation}
 
-Let f(x) be the implicit function, and let a ray be defined by its direction 
+Let $f(x)$ be the implicit function, and let a ray be defined by its direction 
 and origin as follows:
 \begin{equation}
 x = \alpha * t + \beta
@@ -179,9 +180,9 @@ then:
 g(t) = dF/dt
 \end{equation}
 
-Then let L be the Lipschitz constant for f(x), and let G be the Lipschitz
-constant for g(t).  Using this background information, an LG surface can
-then be defined as an implicit function where L and G exist and can be
+Then let $L$ be the Lipschitz constant for $f(x)$, and let $G$ be the Lipschitz
+constant for $g(t)$.  Using this background information, an LG surface can
+then be defined as an implicit function where $L$ and $G$ exist and can be
 computed.  Kalra and Barr's algorithm guarantees correct ray intersections
 for LG surfaces.
 
@@ -255,6 +256,7 @@ public:
 \end{verbatim}
 
 \subsection{Octree}
+\label{sec:Octree}
 
 The octree is a tree data structure where each node has up to eight 
 children.  It will be used in the space pruning algorithm described in
@@ -284,10 +286,91 @@ definitely will not intersect either.
 \section{Algorithms}
 \label{sec:Algorithms}
 
-Write algorithms description here.
+This section describes the ray intersection method developed by
+Kalra and Barr \cite{KalraBarr1989}.  They break this method down into
+two algorithms: space pruning and ray intersection.
 
 \subsection{Space Pruning}
 \label{sec:SpacePruning}
+
+The space pruning algorithm is run first, and its primary purpose is to
+improve efficiency.  The basic idea is that the algorithm will prune 
+away parts of space that definitely do not contain any piece of the LG
+surface, and thereby reduce the space that needs to be searched for 
+intersections.  This algorithm is not actually needed for correctness,
+the ray intersection is still guaranteed to be calculated correctly
+even if no pruning is done.
+
+The algorithm proceeds as follows:
+\begin{enumerate}
+	\item Start with a bounding box around the surface.  It does not
+	have to be a tight bounding box, it just needs to contain the
+	entire surface.
+	\item Recursively subdivide the box to some level n.
+	\item Keep sub-boxes that contain part of the surface, as shown
+	in Figure \ref{fig:surface_boxes}.
+\end{enumerate}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1.5in]{figures/surface_boxes.png}
+  \caption{Sub-boxes containing part of the implicit surface.}
+  \label{fig:surface_boxes}
+\end{figure}
+
+This overview of the algorithm leaves out the details of how it is 
+determined whether a sub-box contains part of the surface.  This will
+be explained next.
+
+A box is said to straddle the surface if it has at least one corner
+inside the surface and one outside.  Figure \ref{fig:straddling_boxes}
+shows a few examples of boxes where green ones straddle the surface
+and red ones do not.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1.5in]{figures/straddling_boxes.png}
+  \caption{Straddling boxes are shown in green, non-straddling are shown in red.}
+  \label{fig:straddling_boxes}
+\end{figure}
+
+If a box straddles the surface, it definitely contains a part of the 
+surface and is kept.  However, even if it does not straddle the surface,
+it still might contain a portion of the surface, such as the red box at
+the function peak in Figure ~\ref{fig:straddling_boxes}.
+
+If a box does not straddle the surface, some more calculations have to
+be performed in order to decide what to do with it.  First let us 
+define $x_{0}$ to be the center of the box, and $d$ to be the half-length
+of the principal diagonal of the box, as shown in Figure
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1.5in]{figures/box.png}
+  \caption{A box showing the definition of $x_0$ and $d$.}
+  \label{fig:box}
+\end{figure}
+
+Let $L$ be defined as in section \ref{sec:LGSurfaces}.  Essentially its
+the max rate of change of the implicit function $f(x)$.  
+
+\begin{equation}
+	\label{eq:LConstraint}
+	|f(x_0)| > L * d
+\end{equation}
+
+If equation \ref{eq:LConstraint} is satisfied, then $f(x)$ must stay 
+the same sign and never assume a value of 0.  
+This means there is no zero-crossing (the implicit function
+evaluates to 0 on its surface).  Therefore the box definitely does not
+contain part of the surface and can be pruned.  
+
+If equation \ref{eq:LConstraint} is not satisfied, then the box is 
+subdivided into eight, and each sub-box is checked.
+
+The end result of the space pruning is an octree data structure 
+(see section \ref{sec:Octree}) with the boxes completely enclosing the
+implicit surface.
 
 \subsection{Ray Intersection}
 \label{sec:RayIntersection}
