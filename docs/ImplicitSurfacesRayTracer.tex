@@ -195,7 +195,19 @@ g(t) = dF/dt
 \end{equation}
 
 Then let $L$ be the Lipschitz constant for $f(x)$, and let $G$ be the Lipschitz
-constant for $g(t)$.  Using this background information, an LG surface can
+constant for $g(t)$.  
+
+\begin{equation}
+\label{eq:L}
+|f(x_1) - f(x_2)| < L * |x_1 - x_2|
+\end{equation}
+
+\begin{equation}
+\label{eq:G}
+|g(t_1) - g(t_2)| < G * |t_1 - t_2|
+\end{equation}
+
+Using this background information, an LG surface can
 then be defined as an implicit function where $L$ and $G$ exist and can be
 computed.  Kalra and Barr's algorithm guarantees correct ray intersections
 for LG surfaces.
@@ -381,7 +393,7 @@ of the principal diagonal of the box, as shown in Figure \ref{fig:box}.
   \label{fig:box}
 \end{figure}
 
-Let $L$ be defined as in section \ref{sec:LGSurfaces}.  Essentially it is
+Let $L$ be defined as in equation \ref{eq:L}.  Essentially it is
 the maximum rate of change of the implicit function $f(x)$.  
 
 \begin{equation}
@@ -420,7 +432,8 @@ Let $t_1$ and $t_2$ be two points along the ray (see definition of ray
 in equation \ref{eq:ray}).  Then let $t_m = (t_1 + t_2) / 2$ and 
 $d = (t_2 - t_1) / 2$.  
 $F$ is as defined in equation \ref{eq:F} and $g(t)$ is defined as in 
-equation \ref{eq:g}.  Recall that $G$ is the Lipschitz constant for $g(t)$.
+equation \ref{eq:g}.  Recall that $G$ is the Lipschitz constant for $g(t)$,
+as defined in equation \ref{eq:G}.
 
 \begin{equation}
 \label{eq:GConstraint}
