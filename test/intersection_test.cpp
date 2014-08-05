@@ -37,7 +37,7 @@ TEST(RayIntersecterTest, FindCandidateBoxes)
     child4->GetChild(1)->Accept();
     child4->GetChild(4)->Accept();
     
-    RayIntersecter intersecter(NULL, &octree);
+    ImplicitRayIntersecter intersecter(NULL, &octree);
     Ray ray(Vector3D(2, -0.75, -0.28), Vector3D(-1, 0, 0));
     std::vector<BoxIntersection> candidates = intersecter.FindCandidateBoxes(
             ray);
@@ -69,7 +69,7 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
     BoxIntersection candidate(box, ray, 1, 3);
     
     SphereSurface surface(Vector3D(0), 1);
-    RayIntersecter intersecter(&surface, NULL);
+    ImplicitRayIntersecter intersecter(&surface, NULL);
     double distance;
     
     EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
@@ -87,7 +87,7 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionNoIntersection)
     BoxIntersection candidate(box, ray, 1, 3);
     
     SphereSurface surface(Vector3D(0), 1);
-    RayIntersecter intersecter(&surface, NULL);
+    ImplicitRayIntersecter intersecter(&surface, NULL);
     double distance;
     
     EXPECT_FALSE(intersecter.FindSurfaceIntersection(candidate, &distance));

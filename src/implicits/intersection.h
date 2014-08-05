@@ -10,7 +10,8 @@
 #include "ray.h"
 #include "vector3d.h"
 
-class BoxIntersection {
+class BoxIntersection
+{
 public:
     BoxIntersection(Box box, Ray ray, double tNear, double tFar);
 
@@ -32,13 +33,14 @@ private:
 };
 
 
-class RayIntersecter {
+class ImplicitRayIntersecter
+{
 public:
     /**
      * Constructs the ray intersecter for the implicit surface contained
      * in the provided octree.
      */
-    RayIntersecter(ImplicitSurface *implicitSurface, Octree *octree);
+    ImplicitRayIntersecter(ImplicitSurface *implicitSurface, Octree *octree);
 
     /**
 	 * Computes the intersection of the ray with the implicit surface.

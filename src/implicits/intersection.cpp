@@ -34,13 +34,13 @@ bool BoxIntersection::operator<(const BoxIntersection &other) const
     return GetTNear() < other.GetTNear();
 }
 
-RayIntersecter::RayIntersecter(ImplicitSurface *implicitSurface, 
+ImplicitRayIntersecter::ImplicitRayIntersecter(ImplicitSurface *implicitSurface, 
         Octree *octree)
     : implicitSurface(implicitSurface), octree(octree)
 {
 }
 
-bool RayIntersecter::Intersect(Ray ray, double *distance)
+bool ImplicitRayIntersecter::Intersect(Ray ray, double *distance)
 {
     std::vector<BoxIntersection> candidates = FindCandidateBoxes(ray);
     
@@ -53,7 +53,7 @@ bool RayIntersecter::Intersect(Ray ray, double *distance)
     return false;
 }
 
-std::vector<BoxIntersection> RayIntersecter::FindCandidateBoxes(Ray &ray)
+std::vector<BoxIntersection> ImplicitRayIntersecter::FindCandidateBoxes(Ray &ray)
 {
     std::vector<BoxIntersection> candidates;
     
@@ -64,7 +64,7 @@ std::vector<BoxIntersection> RayIntersecter::FindCandidateBoxes(Ray &ray)
     return candidates;
 }
 
-void RayIntersecter::RecursivelyFindCandidates(
+void ImplicitRayIntersecter::RecursivelyFindCandidates(
         Octree* currentNode, Ray &ray,
         std::vector<BoxIntersection>* candidates)
 {
@@ -87,7 +87,7 @@ void RayIntersecter::RecursivelyFindCandidates(
     }
 }
 
-bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection, 
+bool ImplicitRayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection, 
             double *distance)
 {
     Ray ray = boxIntersection.GetRay();
