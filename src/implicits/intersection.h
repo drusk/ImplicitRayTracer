@@ -49,6 +49,8 @@ public:
      */
     ImplicitRayIntersecter(ImplicitSurface *implicitSurface, Octree *octree);
 
+    virtual ~ImplicitRayIntersecter();
+    
     /**
 	 * Computes the intersection of the ray with the implicit surface.
      * Returns true if there is an intersection, false otherwise.  

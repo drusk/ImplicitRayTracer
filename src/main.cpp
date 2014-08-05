@@ -13,18 +13,18 @@
 void PopulateScene(Scene &scene)
 {
     scene.AddSphere(Vector3D(0, -10004, -20), 10000, 
-            Vector3D(0.2, 0.2, 0.2), 0.0, 0.0);
+            Vector3D(0.2, 0.2, 0.2), 0.0, 0.0, defaults::IMPLICIT);
     scene.AddSphere(Vector3D(0, 0.5, -20), 4,
-            Vector3D(0.3, 0.6, 0.0), 1.0, 0.5);
+            Vector3D(0.3, 0.6, 0.0), 1.0, 0.5, defaults::IMPLICIT);
     scene.AddSphere(Vector3D(5, -1, -15), 2,
-            Vector3D(1.00, 0.84, 0.0), 1.0, 0.0);
+            Vector3D(1.00, 0.84, 0.0), 1.0, 0.0, defaults::IMPLICIT);
     scene.AddSphere(Vector3D(5, 0.5, -25), 3,
-            Vector3D(0.53, 0.81, 0.92), 1.0, 0.0);
+            Vector3D(0.53, 0.81, 0.92), 1.0, 0.0, defaults::IMPLICIT);
     scene.AddSphere(Vector3D(-5.5, -0.5, -15), 3,
-            Vector3D(0.90, 0.90, 0.90), 1.0, 0.0);
+            Vector3D(0.90, 0.90, 0.90), 1.0, 0.0, defaults::IMPLICIT);
 
     scene.AddLight(Vector3D(0, 20, -30), 3, Vector3D(0.0, 0.0, 0.0), 0.0, 0.0,
-            Vector3D(3.0, 3.0, 3.0));
+            Vector3D(3.0, 3.0, 3.0), defaults::IMPLICIT);
 }
 
 int main(int argc, char **argv)

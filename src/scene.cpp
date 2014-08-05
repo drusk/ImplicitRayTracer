@@ -9,20 +9,22 @@ Scene::~Scene()
 }
 
 Sphere *Scene::AddSphere(Vector3D center, double radius, 
-        Vector3D surfaceColour, double reflectivity, double transparency)
+        Vector3D surfaceColour, double reflectivity, double transparency,
+        bool implicit)
 {
     Sphere *sphere = new Sphere(center, radius, surfaceColour, 
-            reflectivity, transparency);
+            reflectivity, transparency, implicit);
     spheres.push_back(sphere);
     
     return sphere;
 }
 
 Sphere *Scene::AddLight(Vector3D center, double radius, Vector3D surfaceColour, 
-        double reflectivity, double transparency, Vector3D emissionColour)
+        double reflectivity, double transparency, Vector3D emissionColour,
+        bool implicit)
 {
     Sphere *light = new Sphere(center, radius, surfaceColour, 
-            reflectivity, transparency);
+            reflectivity, transparency, implicit);
     light->SetEmissionColour(emissionColour);
     
     spheres.push_back(light);

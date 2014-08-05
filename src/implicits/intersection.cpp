@@ -51,6 +51,11 @@ ImplicitRayIntersecter::ImplicitRayIntersecter(
 {
 }
 
+ImplicitRayIntersecter::~ImplicitRayIntersecter()
+{
+    delete implicitSurface;
+}
+
 bool ImplicitRayIntersecter::Intersect(Ray ray, double *distance)
 {
     std::vector<BoxIntersection> candidates = FindCandidateBoxes(ray);

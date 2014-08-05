@@ -1,7 +1,10 @@
 #include "sphere.h"
 
+#include "implicits/intersection.h"
+#include "implicits/surface.h"
+
 Sphere::Sphere(Vector3D center, double radius, Vector3D surfaceColour,
-        double reflectivity, double transparency)
+        double reflectivity, double transparency, bool implicit)
     : center(center),
       radius(radius),
       surfaceColour(surfaceColour),
@@ -9,7 +12,12 @@ Sphere::Sphere(Vector3D center, double radius, Vector3D surfaceColour,
       transparency(transparency),
       isLightSource(false)
 {
-    rayIntersecter = new GeometricRayIntersecter(center, radius);
+    if (implicit) {
+        rayIntersecter = new ImplicitRayIntersecter(
+                new SphereSurface(center, radius));
+    } else {
+        rayIntersecter = new GeometricRayIntersecter(center, radius);
+    }
 }
 
 Sphere::~Sphere()

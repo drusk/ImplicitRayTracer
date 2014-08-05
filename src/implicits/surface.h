@@ -13,6 +13,8 @@
 class ImplicitSurface
 {
 public:
+    virtual ~ImplicitSurface() {};
+    
     /**
      * Returns a bounding box around this surface.  It does not have to be
      * the minimal bounding box.

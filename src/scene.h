@@ -13,10 +13,11 @@ public:
     ~Scene();
     
     Sphere *AddSphere(Vector3D center, double radius, Vector3D surfaceColour,
-        double reflectivity, double transparency);
+        double reflectivity, double transparency, bool implicit = false);
     
     Sphere *AddLight(Vector3D center, double radius, Vector3D surfaceColour,
-        double reflectivity, double transparency, Vector3D emissionColour);
+        double reflectivity, double transparency, Vector3D emissionColour,
+        bool implicit = false);
 
     std::list<Sphere *> GetObjects();
     

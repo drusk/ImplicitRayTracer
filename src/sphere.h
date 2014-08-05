@@ -9,7 +9,7 @@ class Sphere
 {
 public:
 	Sphere(Vector3D center, double radius, Vector3D surfaceColour,
-			double reflectivity, double transparency);
+			double reflectivity, double transparency, bool implicit = false);
 
     ~Sphere();
     

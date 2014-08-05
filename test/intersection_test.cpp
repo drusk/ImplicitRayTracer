@@ -68,10 +68,10 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
     Ray ray(Vector3D(3, 0, 0), Vector3D(-1, 0, 0));
     BoxIntersection candidate(box, ray, 1, 3);
     
-    SphereSurface surface(Vector3D(0), 1);
-    ImplicitRayIntersecter intersecter(&surface, NULL);
+    ImplicitRayIntersecter intersecter(new SphereSurface(Vector3D(0), 1), 
+            NULL);
+
     double distance;
-    
     EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
 
     Vector3D intersection = ray.Follow(distance);
@@ -86,9 +86,9 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionNoIntersection)
     Ray ray(Vector3D(3, 3, 0), Vector3D(-1, 0, 0));
     BoxIntersection candidate(box, ray, 1, 3);
     
-    SphereSurface surface(Vector3D(0), 1);
-    ImplicitRayIntersecter intersecter(&surface, NULL);
+    ImplicitRayIntersecter intersecter(new SphereSurface(Vector3D(0), 1), 
+            NULL);
+
     double distance;
-    
     EXPECT_FALSE(intersecter.FindSurfaceIntersection(candidate, &distance));
 }
