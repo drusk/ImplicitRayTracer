@@ -202,12 +202,95 @@ image dimensions.
 
 \section{Data Structures}
 
-Write data structures description here.
+This section describes some of the data structures and interfaces 
+used to implement the implicit surface ray tracer.  Only two of the 
+more fundamental and interesting ones are presented here.
+
+\subsection{Implicit Surface Interface}
+
+The system has an interface class for implicit surfaces.  To add a new
+type of implicit surface to the system, simply create a subclass
+which implements the interface's methods.  The C++ code for the interface
+is shown below:
+
+\begin{verbatim}
+class ImplicitSurface
+{
+public:
+    /**
+     * Returns a bounding box around this 
+     * surface.  It does not have to be the 
+     * minimal bounding box.
+     */
+    virtual Box BoundingBox() = 0;
+    
+    /**
+     * Returns the value of the implicit 
+     * function that defines this surface
+     * at the specified point in space.
+     */
+    virtual double ImplicitFunction(
+            Vector3D point) = 0;
+    
+    /**
+     * Returns the Lipschitz constant for 
+     * this surface in the rectangular
+     * region defined by the minPoint and 
+     * maxPoint.
+     */
+    virtual double LipschitzConstant(
+            Vector3D minPoint, 
+            Vector3D maxPoint) = 0;
+
+    /**
+     * Returns the Gradient Lipschitz 
+     * constant for this surface along the
+     * specified ray, between ray 
+     * distances t1 and t2.
+     */
+    virtual double GradLipschitzConstant(
+            Ray ray, 
+            double t1, double t2) = 0;
+};
+\end{verbatim}
+
+\subsection{Octree}
+
+The octree is a tree data structure where each node has up to eight 
+children.  It will be used in the space pruning algorithm described in
+section \ref{sec:SpacePruning}.  Each node in the tree represents a volume
+in space, and child nodes are subsections of this volume.  To create
+child nodes, the current node's volume is split into eight equal pieces.
+A similar data structure which can be visualized in two dimensions is
+the quadtree which has four children per node.  Figure \ref{fig:quadtree}
+visualizes the recursive nature of the space subdivision, and how that is translated
+into a tree structure. 
+The octree works the same way, but in three-dimensions by splitting in
+the z-axis as well.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1.5in]{figures/quadtree.png}
+  \caption{Example of a quad tree's spacial representation and tree representation.}
+  \label{fig:quadtree}
+\end{figure}
+
+The octree structure aids in finding the first box a ray intersects (needed 
+for the ray intersection algorithm given in section \ref{sec:RayIntersection}.
+This is because if it is discovered the box associated with a node does not
+intersect with the ray, then all of its children can be ignored because they
+definitely will not intersect either.
 
 \section{Algorithms}
 \label{sec:Algorithms}
 
 Write algorithms description here.
+
+\subsection{Space Pruning}
+\label{sec:SpacePruning}
+
+\subsection{Ray Intersection}
+\label{sec:RayIntersection}
 
 \section{Implementation}
 
@@ -227,7 +310,7 @@ https://github.com/drusk/ImplicitRayTracer
 \section{Results}
 
 The system developed can currently render spheres with adjustable locations,
-radii, colours, reflectivity and transparency.  The below figure shows a
+radii, colours, reflectivity and transparency.  Figure \ref{fig:spheres} shows a
 simple example.  The ground is made using a sphere with a very large radius.
 The light source (not in the field of view) is also a sphere.  Except for the
 ground sphere, all of them are reflective.  Only the green sphere has some
@@ -237,6 +320,7 @@ transparency.
   \centering
   \includegraphics[width=1.5in]{figures/spheres.png}
   \caption{Example of ray traced spheres.}
+  \label{fig:spheres}
 \end{figure}
 
 \section{Conclusion}
@@ -260,12 +344,13 @@ surfaces for modelling when using ray tracing.
 
 Future development of the application could add support for blending surfaces
 which are close to each other.  A simple two-dimensional example of this concept
-is shown below.
+is shown in Figure \ref{fig:blend2d}.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=1.5in]{figures/blend2d.png}
   \caption{Two-dimensional blend of two circles.}
+  \label{fig:blend2d}
 \end{figure}
 
 Adding constructive solid geometry (CSG) operations would also be useful
