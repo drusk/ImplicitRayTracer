@@ -20,7 +20,7 @@ public:
      * Finds the root (zero) of the implicit function along the ray.  Begins 
      * at the distance currentGuess along the ray.
      */
-    Vector3D FindRoot(ImplicitSurface *surface, Ray ray, double currentGuess);
+    double FindRoot(ImplicitSurface *surface, Ray ray, double currentGuess);
     
 private:
     double tolerance;

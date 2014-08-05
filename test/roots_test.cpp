@@ -13,9 +13,10 @@ TEST(NewtonRootFinderTest, FindIntersection)
     Ray ray(Vector3D(3, 0, 0), Vector3D(-1, 0, 0));
     double guess = 0.0;
     
-    Vector3D root = rootFinder.FindRoot(&surface, ray, guess);
+    double root = rootFinder.FindRoot(&surface, ray, guess);
+    Vector3D rootPoint = ray.Follow(root);
     
-    EXPECT_DOUBLE_EQ(1.0, root.GetX());
-    EXPECT_DOUBLE_EQ(0.0, root.GetY());
-    EXPECT_DOUBLE_EQ(0.0, root.GetZ());
+    EXPECT_DOUBLE_EQ(1.0, rootPoint.GetX());
+    EXPECT_DOUBLE_EQ(0.0, rootPoint.GetY());
+    EXPECT_DOUBLE_EQ(0.0, rootPoint.GetZ());
 }

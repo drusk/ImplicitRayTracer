@@ -75,7 +75,7 @@ void RayIntersecter::RecursivelyFindCandidates(
 }
 
 bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection, 
-            Vector3D &intersectionPoint)
+            double *distance)
 {
     Ray ray = boxIntersection.GetRay();
     double t1 = boxIntersection.GetTNear();
@@ -94,12 +94,7 @@ bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection,
         
         if (F1 * F2 < 0) {
             // Opposite signs
-            
-            Vector3D root = rootFinder.FindRoot(implicitSurface, ray, tMid);
-            intersectionPoint.SetX(root.GetX());
-            intersectionPoint.SetY(root.GetY());
-            intersectionPoint.SetZ(root.GetZ());
-
+            *distance = rootFinder.FindRoot(implicitSurface, ray, tMid);
             return true;
         } else {
             // Same sign, no intersection
@@ -112,7 +107,7 @@ bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection,
         BoxIntersection secondInterval(boxIntersection.GetBox(), 
                 boxIntersection.GetRay(), tMid, t2);
 
-        return FindSurfaceIntersection(firstInterval, intersectionPoint) ||
-                FindSurfaceIntersection(secondInterval, intersectionPoint);
+        return FindSurfaceIntersection(firstInterval, distance) ||
+                FindSurfaceIntersection(secondInterval, distance);
     }
 }

@@ -43,11 +43,12 @@ public:
     /**
      * Finds the ray intersection with the implicit surface within a box that
      * the ray intersects.  Returns true if there is an intersection with
-     * the implicit surface, in which case the intersection is returned
-     * through the intersectionPoint parameter.
+     * the implicit surface, in which case the distance parameter is used to
+     * return the distance along the ray at which the intersection
+     * occurs.
      */
     bool FindSurfaceIntersection(BoxIntersection boxIntersection, 
-            Vector3D &intersectionPoint);
+            double *distance);
     
     /**
      * Finds candidate boxes along the line of sight of the ray, in the order in

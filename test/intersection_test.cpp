@@ -70,9 +70,11 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
     
     ImplicitSphere surface(Vector3D(0), 1);
     RayIntersecter intersecter(&surface, NULL);
-    Vector3D intersection;
+    double distance;
     
-    EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, intersection));
+    EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
+
+    Vector3D intersection = ray.Follow(distance);
     EXPECT_DOUBLE_EQ(1.0, intersection.GetX());
     EXPECT_DOUBLE_EQ(0.0, intersection.GetY());
     EXPECT_DOUBLE_EQ(0.0, intersection.GetZ());
@@ -86,7 +88,7 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionNoIntersection)
     
     ImplicitSphere surface(Vector3D(0), 1);
     RayIntersecter intersecter(&surface, NULL);
-    Vector3D intersection;
+    double distance;
     
-    EXPECT_FALSE(intersecter.FindSurfaceIntersection(candidate, intersection));
+    EXPECT_FALSE(intersecter.FindSurfaceIntersection(candidate, &distance));
 }

@@ -7,7 +7,7 @@ NewtonRootFinder::NewtonRootFinder(double tolerance)
 {
 }
 
-Vector3D NewtonRootFinder::FindRoot(ImplicitSurface *surface, Ray ray, 
+double NewtonRootFinder::FindRoot(ImplicitSurface *surface, Ray ray, 
         double guess)
 {
     double nextGuess = RefineGuess(surface, ray, guess);
@@ -19,7 +19,7 @@ Vector3D NewtonRootFinder::FindRoot(ImplicitSurface *surface, Ray ray,
         i++;
     }
     
-    return ray.Follow(nextGuess);
+    return nextGuess;
 }
 
 double NewtonRootFinder::RefineGuess(ImplicitSurface *surface, Ray ray, 
