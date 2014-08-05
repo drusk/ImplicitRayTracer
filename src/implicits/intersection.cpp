@@ -81,8 +81,8 @@ std::vector<BoxIntersection> ImplicitRayIntersecter::FindCandidateBoxes(Ray &ray
 }
 
 void ImplicitRayIntersecter::RecursivelyFindCandidates(
-        Octree* currentNode, Ray &ray,
-        std::vector<BoxIntersection>* candidates)
+        Octree *currentNode, Ray &ray,
+        std::vector<BoxIntersection> *candidates)
 {
     if (currentNode->IsRejected()) {
         return;

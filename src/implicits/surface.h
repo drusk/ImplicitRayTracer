@@ -40,7 +40,7 @@ public:
     virtual double DirectionalGradient(Ray ray, double t) = 0;
     
     /**
-     * Returns the Lipschitz constant for this surface in the rectangular
+     * Returns the Lipschitz constant for this surface in the
      * region defined by the minPoint and maxPoint.
      */
     virtual double LipschitzConstant(Vector3D minPoint, Vector3D maxPoint) = 0;
