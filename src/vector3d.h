@@ -34,6 +34,21 @@ public:
 	 */
 	double GetZ() const;
 
+    /**
+     * Gives the x component a new value.
+     */
+    void SetX(double x);
+
+    /**
+     * Gives the y component a new value.
+     */
+    void SetY(double y);
+    
+    /**
+     * Gives the z component a new value.
+     */
+    void SetZ(double z);
+    
 	/**
 	 * Returns the dot product of this vector and the other specified
 	 * vector.

@@ -32,6 +32,21 @@ double Vector3D::GetZ() const
     return z;
 }
 
+void Vector3D::SetX(double x)
+{
+    this->x = x;
+}
+
+void Vector3D::SetY(double y)
+{
+    this->y = y;
+}
+
+void Vector3D::SetZ(double z)
+{
+    this->z = z;
+}
+
 double Vector3D::DotProduct(const Vector3D &otherVector) const
 {
     return GetX() * otherVector.GetX() + GetY() * otherVector.GetY() +

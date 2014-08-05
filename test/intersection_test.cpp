@@ -2,8 +2,11 @@
 
 #include "gtest/gtest.h"
 
+#include <cstddef>
 #include <vector>
 
+#include "box.h"
+#include "ray.h"
 #include "vector3d.h"
 
 TEST(RayIntersecterTest, FindCandidateBoxes)
@@ -34,7 +37,7 @@ TEST(RayIntersecterTest, FindCandidateBoxes)
     child4->GetChild(1)->Accept();
     child4->GetChild(4)->Accept();
     
-    RayIntersecter intersecter(&octree);
+    RayIntersecter intersecter(NULL, &octree);
     Ray ray(Vector3D(2, -0.75, -0.28), Vector3D(-1, 0, 0));
     std::vector<BoxIntersection> candidates = intersecter.FindCandidateBoxes(
             ray);
@@ -57,4 +60,33 @@ TEST(RayIntersecterTest, FindCandidateBoxes)
     EXPECT_DOUBLE_EQ(-0.25, candidate1Center.GetZ());
     EXPECT_DOUBLE_EQ(2.5, candidate1.GetTNear());
     EXPECT_DOUBLE_EQ(3.0, candidate1.GetTFar());
+}
+
+TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
+{
+    Box box(Vector3D(1, 0, 0), 2);
+    Ray ray(Vector3D(3, 0, 0), Vector3D(-1, 0, 0));
+    BoxIntersection candidate(box, ray, 1, 3);
+    
+    ImplicitSphere surface(Vector3D(0), 1);
+    RayIntersecter intersecter(&surface, NULL);
+    Vector3D intersection;
+    
+    EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, intersection));
+    EXPECT_DOUBLE_EQ(1.0, intersection.GetX());
+    EXPECT_DOUBLE_EQ(0.0, intersection.GetY());
+    EXPECT_DOUBLE_EQ(0.0, intersection.GetZ());
+}
+
+TEST(RayIntersecterTest, FindSurfaceIntersectionNoIntersection)
+{
+    Box box(Vector3D(1, 0, 0), 2);
+    Ray ray(Vector3D(3, 3, 0), Vector3D(-1, 0, 0));
+    BoxIntersection candidate(box, ray, 1, 3);
+    
+    ImplicitSphere surface(Vector3D(0), 1);
+    RayIntersecter intersecter(&surface, NULL);
+    Vector3D intersection;
+    
+    EXPECT_FALSE(intersecter.FindSurfaceIntersection(candidate, intersection));
 }

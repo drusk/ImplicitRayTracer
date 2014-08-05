@@ -1,15 +1,24 @@
 #include "implicits/intersection.h"
 
+#include <cmath>
+
 #include <algorithm>
 
-BoxIntersection::BoxIntersection(Box box, double tNear, double tFar)
-    : box(box), tNear(tNear), tFar(tFar)
+#include <iostream>
+
+BoxIntersection::BoxIntersection(Box box, Ray ray, double tNear, double tFar)
+    : box(box), ray(ray), tNear(tNear), tFar(tFar)
 {
 }
 
 Box BoxIntersection::GetBox() const
 {
     return box;
+}
+
+Ray BoxIntersection::GetRay() const
+{
+    return ray;
 }
 
 double BoxIntersection::GetTNear() const
@@ -27,8 +36,9 @@ bool BoxIntersection::operator<(const BoxIntersection &other) const
     return GetTNear() < other.GetTNear();
 }
 
-RayIntersecter::RayIntersecter(Octree *octree)
-    : octree(octree)
+RayIntersecter::RayIntersecter(ImplicitSurface *implicitSurface, 
+        Octree *octree)
+    : implicitSurface(implicitSurface), octree(octree)
 {
 }
 
@@ -57,11 +67,58 @@ void RayIntersecter::RecursivelyFindCandidates(
     
     if (currentNode->IsAccepted() && 
             ray.Intersects(box, &tNear, &tFar)) {
-        candidates->push_back(BoxIntersection(box, tNear, tFar));
+        candidates->push_back(BoxIntersection(box, ray, tNear, tFar));
     } else if (!currentNode->IsLeaf()) {
         for (int i = 0; i < Octree::NUM_CHILDREN; i++) {
             RecursivelyFindCandidates(currentNode->GetChild(i), ray,
                     candidates);
         }
+    }
+}
+
+bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection, 
+            Vector3D &intersectionPoint)
+{
+    Ray ray = boxIntersection.GetRay();
+    double t1 = boxIntersection.GetTNear();
+    double t2 = boxIntersection.GetTFar();
+    
+    double tMid = (t1 + t2) / 2;
+    double halfDistance = (t2 - t1) / 2;
+    
+    double maxGradChange = implicitSurface->GradLipschitzConstant(
+            ray, t1, t2) * halfDistance;
+    
+    std::cout << "Gd = " << maxGradChange << std::endl;
+    double g = abs(implicitSurface->DirectionalGradient(ray, tMid));
+    std::cout << "g = " << g << std::endl;
+    
+    if (g <= maxGradChange) {
+        double F1 = implicitSurface->ImplicitFunction(ray.Follow(t1));
+        double F2 = implicitSurface->ImplicitFunction(ray.Follow(t2));
+        
+        if (F1 * F2 < 0) {
+            // Opposite signs
+            
+            Vector3D root = rootFinder.FindRoot(implicitSurface, ray, tMid);
+            std::cout << "Root: " << root.GetX() << ", " << root.GetY() << ", " << root.GetZ() << std::endl;
+            intersectionPoint.SetX(root.GetX());
+            intersectionPoint.SetY(root.GetY());
+            intersectionPoint.SetZ(root.GetZ());
+
+            return true;
+        } else {
+            // Same sign, no intersection
+            return false;
+        }
+    } else {
+        // Subdivide
+        BoxIntersection firstInterval(boxIntersection.GetBox(), 
+                boxIntersection.GetRay(), t1, tMid);
+        BoxIntersection secondInterval(boxIntersection.GetBox(), 
+                boxIntersection.GetRay(), tMid, t2);
+
+        return FindSurfaceIntersection(firstInterval, intersectionPoint) ||
+                FindSurfaceIntersection(secondInterval, intersectionPoint);
     }
 }

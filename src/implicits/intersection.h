@@ -5,14 +5,18 @@
 
 #include "box.h"
 #include "implicits/octree.h"
+#include "implicits/roots.h"
+#include "implicits/surface.h"
 #include "ray.h"
 #include "vector3d.h"
 
 class BoxIntersection {
 public:
-    BoxIntersection(Box box, double tNear, double tFar);
+    BoxIntersection(Box box, Ray ray, double tNear, double tFar);
 
     Box GetBox() const;
+    
+    Ray GetRay() const;
     
     double GetTNear() const;
     
@@ -22,6 +26,7 @@ public:
     
 private:
     Box box;
+    Ray ray;
     double tNear;
     double tFar;
 };
@@ -33,7 +38,16 @@ public:
      * Constructs the ray intersecter for the implicit surface contained
      * in the provided octree.
      */
-    RayIntersecter(Octree *octree);
+    RayIntersecter(ImplicitSurface *implicitSurface, Octree *octree);
+
+    /**
+     * Finds the ray intersection with the implicit surface within a box that
+     * the ray intersects.  Returns true if there is an intersection with
+     * the implicit surface, in which case the intersection is returned
+     * through the intersectionPoint parameter.
+     */
+    bool FindSurfaceIntersection(BoxIntersection boxIntersection, 
+            Vector3D &intersectionPoint);
     
     /**
      * Finds candidate boxes along the line of sight of the ray, in the order in
@@ -43,7 +57,9 @@ public:
     std::vector<BoxIntersection> FindCandidateBoxes(Ray &ray);
     
 private:
+    ImplicitSurface *implicitSurface;
     Octree *octree;
+    NewtonRootFinder rootFinder;
     
     void RecursivelyFindCandidates(Octree *currentNode, Ray &ray,
             std::vector<BoxIntersection> *candidates);
