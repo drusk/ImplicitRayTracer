@@ -40,6 +40,19 @@ RayIntersecter::RayIntersecter(ImplicitSurface *implicitSurface,
 {
 }
 
+bool RayIntersecter::Intersect(Ray ray, double *distance)
+{
+    std::vector<BoxIntersection> candidates = FindCandidateBoxes(ray);
+    
+    for (std::size_t i = 0; i < candidates.size(); i++) {
+        if (FindSurfaceIntersection(candidates[i], distance)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 std::vector<BoxIntersection> RayIntersecter::FindCandidateBoxes(Ray &ray)
 {
     std::vector<BoxIntersection> candidates;

@@ -41,6 +41,15 @@ public:
     RayIntersecter(ImplicitSurface *implicitSurface, Octree *octree);
 
     /**
+	 * Computes the intersection of the ray with the implicit surface.
+     * Returns true if there is an intersection, false otherwise.  
+     * If there is an intersection, the distance parameter is used to
+     * return the distance along the ray at which the intersection
+     * occurs.
+     */
+    bool Intersect(Ray ray, double *distance);
+    
+    /**
      * Finds the ray intersection with the implicit surface within a box that
      * the ray intersects.  Returns true if there is an intersection with
      * the implicit surface, in which case the distance parameter is used to
