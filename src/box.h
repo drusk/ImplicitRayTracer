@@ -6,7 +6,7 @@
 #include "vector3d.h"
 
 /**
- * A three-dimension "box".
+ * An axis-aligned three-dimension "box".
  */
 class Box {
 public:
