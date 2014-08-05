@@ -2,7 +2,7 @@
 
 #include "gtest/gtest.h"
 
-#include "implicits/box.h"
+#include "box.h"
 #include "vector3d.h"
 
 TEST(OctreeTest, Subdivide)

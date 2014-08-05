@@ -1,7 +1,7 @@
 #ifndef SURFACE_H
 #define	SURFACE_H
 
-#include "implicits/box.h"
+#include "box.h"
 #include "ray.h"
 #include "vector3d.h"
 

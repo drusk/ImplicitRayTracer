@@ -1,7 +1,7 @@
 #ifndef OCTREE_H
 #define	OCTREE_H
 
-#include "implicits/box.h"
+#include "box.h"
 #include "vector3d.h"
 
 class Octree {

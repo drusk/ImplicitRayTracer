@@ -1,6 +1,7 @@
 #ifndef SPACEPRUNE_H
 #define	SPACEPRUNE_H
 
+#include "box.h"
 #include "implicits/octree.h"
 #include "implicits/surface.h"
 

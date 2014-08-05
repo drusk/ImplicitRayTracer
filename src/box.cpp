@@ -1,4 +1,4 @@
-#include "implicits/box.h"
+#include "box.h"
 
 Box::Box(Vector3D center, double sideLength)
     : center(center), sideLength(sideLength)
