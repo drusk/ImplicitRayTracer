@@ -2,26 +2,11 @@
 
 #include <cmath>
 
-typedef std::list<Sphere *>::iterator SphereIterator;
-
-RayTracer::RayTracer(int maxRayDepth, double fieldOfView,
+RayTracer::RayTracer(Scene &scene, int maxRayDepth, double fieldOfView,
         Vector3D backgroundColour, double bias)
-    : spheres(), maxRayDepth(maxRayDepth), fieldOfView(fieldOfView),
+    : scene(scene), maxRayDepth(maxRayDepth), fieldOfView(fieldOfView),
       backgroundColour(backgroundColour), bias(bias)
 {
-}
-
-RayTracer::~RayTracer()
-{
-    while(!spheres.empty()) {
-        delete spheres.front();
-        spheres.pop_front();
-    }
-}
-
-void RayTracer::AddObject(Sphere *sphere)
-{
-    spheres.push_back(sphere);
 }
 
 Vector3D RayTracer::TraceRay(Ray ray, int depth)
@@ -86,7 +71,7 @@ bool RayTracer::IntersectObject(Ray ray, Sphere **intersectedObject,
     double nearestIntersection = INFINITY;
 
     Sphere *nearestIntersectedObject;
-    for (SphereIterator it = spheres.begin(); it != spheres.end(); it++) {
+    for (SphereIterator it = scene.begin(); it != scene.end(); it++) {
         Sphere *sphere = *it;
 
         double nearPoint = INFINITY;
@@ -148,7 +133,7 @@ Vector3D RayTracer::CalculateIlluminationFromLightSources(
 {
     Vector3D colour;
 
-    for (SphereIterator it = spheres.begin(); it != spheres.end(); it++) {
+    for (SphereIterator it = scene.begin(); it != scene.end(); it++) {
         Sphere *sphere = *it;
 
         if (sphere->IsLightSource()) {
@@ -156,7 +141,7 @@ Vector3D RayTracer::CalculateIlluminationFromLightSources(
             Vector3D lightDirection = sphere->GetCenter() - intersectionPoint;
             lightDirection.Normalize();
 
-            for (SphereIterator it2 = spheres.begin(); it2 != spheres.end(); it2++) {
+            for (SphereIterator it2 = scene.begin(); it2 != scene.end(); it2++) {
                 Sphere *otherSphere = *it2;
 
                 if (otherSphere == sphere) {

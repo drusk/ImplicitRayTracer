@@ -5,6 +5,7 @@
 
 #include "image.h"
 #include "ray.h"
+#include "scene.h"
 #include "sphere.h"
 #include "vector3d.h"
 
@@ -15,19 +16,9 @@ public:
 	 * Creates the raytracer with the specified max ray depth and field
 	 * of view (in degrees).
 	 */
-	RayTracer(int maxRayDepth, double fieldOfView, Vector3D backgroundColour,
-			double bias);
+	RayTracer(Scene &scene, int maxRayDepth, double fieldOfView, 
+            Vector3D backgroundColour, double bias);
     
-    /**
-     * Frees objects rendered by the ray tracer after rendering is finished.
-     */
-    virtual ~RayTracer();
-    
-	/**
-	 * Adds an object to the scene.
-	 */
-	void AddObject(Sphere *sphere);
-
 	/**
 	 * Trace all of the rays for the scene and return an image.
 	 */
@@ -83,8 +74,8 @@ public:
 			Vector3D intersectionPoint, Vector3D normal);
 
 private:
-	std::list<Sphere *> spheres;
-
+    Scene &scene;
+    
 	int maxRayDepth;
 	double fieldOfView;
 	Vector3D backgroundColour;

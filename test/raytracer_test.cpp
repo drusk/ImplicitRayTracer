@@ -1,9 +1,11 @@
-#include "ray.h"
 #include "raytracer.h"
-#include "sphere.h"
-#include "vector3d.h"
 
 #include "gtest/gtest.h"
+
+#include "ray.h"
+#include "scene.h"
+#include "sphere.h"
+#include "vector3d.h"
 
 #define MAX_DEPTH 5
 #define FOV 30
@@ -16,14 +18,14 @@
 
 TEST(RayTracerTest, IntersectObjectSingleDirectHit)
 {
-    RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
-
     double radius = 2.0;
-    Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
+
+    Scene scene;
+    Sphere *sphere = scene.AddSphere(Vector3D(10.0, 0.0, 0.0), radius,
             DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
             DEFAULT_REFLECTIVITY);
 
-    raytracer.AddObject(sphere);
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
     Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(1.0, 0.0, 0.0));
     Sphere *intersectedObject;
@@ -42,14 +44,14 @@ TEST(RayTracerTest, IntersectObjectSingleDirectHit)
 
 TEST(RayTracerTest, IntersectObjectSinglePeripheralHit)
 {
-    RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
-
     double radius = 2.0;
-    Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
+    
+    Scene scene;
+    Sphere *sphere = scene.AddSphere(Vector3D(10.0, 0.0, 0.0), radius,
             DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
             DEFAULT_REFLECTIVITY);
-
-    raytracer.AddObject(sphere);
+    
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
     Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(10.0, 2.0, 0.0));
     Sphere *intersectedObject;
@@ -68,14 +70,14 @@ TEST(RayTracerTest, IntersectObjectSinglePeripheralHit)
 
 TEST(RayTracerTest, IntersectObjectMiss)
 {
-    RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
-
     double radius = 2.0;
-    Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
+
+    Scene scene;
+    scene.AddSphere(Vector3D(10.0, 0.0, 0.0), radius,
             DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
             DEFAULT_REFLECTIVITY);
-
-    raytracer.AddObject(sphere);
+    
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
     Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(10.0, 3.0, 0.0));
     Sphere *intersectedObject;
@@ -89,18 +91,17 @@ TEST(RayTracerTest, IntersectObjectMiss)
 
 TEST(RayTracerTest, IntersectObjectMultipleHitNearest)
 {
-    RayTracer raytracer(MAX_DEPTH, FOV, BACKGROUND, BIAS);
-
     double radius = 2.0;
-    Sphere *sphere = new Sphere(Vector3D(10.0, 0.0, 0.0), radius,
+    
+    Scene scene;
+    Sphere *sphere = scene.AddSphere(Vector3D(10.0, 0.0, 0.0), radius,
             DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
             DEFAULT_REFLECTIVITY);
-    Sphere *sphere2 = new Sphere(Vector3D(20.0, 0.0, 0.0), radius,
+    scene.AddSphere(Vector3D(20.0, 0.0, 0.0), radius,
             DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
             DEFAULT_REFLECTIVITY);
-
-    raytracer.AddObject(sphere2);
-    raytracer.AddObject(sphere);
+    
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, BACKGROUND, BIAS);
 
     Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(1.0, 0.0, 0.0));
     Sphere *intersectedObject;
