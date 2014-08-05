@@ -7,6 +7,11 @@ NewtonRootFinder::NewtonRootFinder(double tolerance)
 {
 }
 
+double NewtonRootFinder::GetTolerance()
+{
+    return tolerance;
+}
+
 double NewtonRootFinder::FindRoot(ImplicitSurface *surface, Ray ray, 
         double guess)
 {

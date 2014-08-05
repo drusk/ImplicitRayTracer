@@ -16,6 +16,8 @@ public:
      */
     NewtonRootFinder(double tolerance = 0.000001);
     
+    double GetTolerance();
+    
     /**
      * Finds the root (zero) of the implicit function along the ray.  Begins 
      * at the distance currentGuess along the ray.

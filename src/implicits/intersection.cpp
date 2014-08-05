@@ -110,6 +110,10 @@ bool ImplicitRayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersec
     double t1 = boxIntersection.GetTNear();
     double t2 = boxIntersection.GetTFar();
     
+    if ((t2 - t1) < rootFinder.GetTolerance()) {
+        return false;
+    }
+    
     double tMid = (t1 + t2) / 2;
     double halfDistance = (t2 - t1) / 2;
     
