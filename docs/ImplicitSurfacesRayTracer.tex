@@ -129,10 +129,11 @@ For more reading about ray tracing, see Shirley et al. \cite{Shirley}.
 \subsection{Implicit Surfaces}
 
 Implicit surfaces are a method for modelling objects using an equation
-where the function is set to equal 0.  For example, here is the 
-equation describing a sphere:
+where the function is set to equal 0.  For example, \ref{eq:sphere}
+describes a sphere.
 
 \begin{equation}
+\label{eq:sphere}
 f(x, y, z) = x^2 + y^2 + z^2 - r^2 = 0
 \end{equation}
 
@@ -158,25 +159,35 @@ Kalra and Barr use Lipschitz constants to put bounds
 on the net rate of change of the implicit function and its derivative along
 the direction of the ray.
 
-A Lipschitz constant is a constant that satisfies the following inequality:
+A Lipschitz constant is a constant that satisfies the inequality in 
+equation \ref{eq:lipschitz}.
+
 \begin{equation}
+\label{eq:lipschitz}
 ||f(x_1) - f(x_2)|| < LipschitzConstant * ||x_1 - x_2||
 \end{equation}
 
-Let $f(x)$ be the implicit function, and let a ray be defined by its direction 
-and origin as follows:
+Let $f(x)$ be the implicit function, and let a ray be defined by its 
+direction $\alpha$ and origin $\beta$ as in equation \ref{eq:ray}.
+
 \begin{equation}
+\label{eq:ray}
 x = \alpha * t + \beta
 \end{equation}
 
-Then the implicit function's value along the ray is:
+Then the implicit function's value along the ray can be defined as in
+equation \ref{eq:F}.
+
 \begin{equation}
+\label{eq:F}
 F(t) = f(\alpha * t + \beta)
 \end{equation}
 
 The derivative of the original implicit function along the ray direction is 
-then:
+then as shown in equation \ref{eq:g}.
+
 \begin{equation}
+\label{eq:g}
 g(t) = dF/dt
 \end{equation}
 
@@ -355,8 +366,8 @@ Let $L$ be defined as in section \ref{sec:LGSurfaces}.  Essentially its
 the max rate of change of the implicit function $f(x)$.  
 
 \begin{equation}
-	\label{eq:LConstraint}
-	|f(x_0)| > L * d
+\label{eq:LConstraint}
+|f(x_0)| > L * d
 \end{equation}
 
 If equation \ref{eq:LConstraint} is satisfied, then $f(x)$ must stay 
