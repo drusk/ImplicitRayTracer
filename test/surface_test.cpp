@@ -58,3 +58,13 @@ TEST(ImplicitSphereTest, LipschitzGrad)
     
     EXPECT_DOUBLE_EQ(1.0, sphere.GradLipschitzConstant(ray, 0, 1));
 }
+
+TEST(ImplicitSphereTest, Gradient)
+{
+    ImplicitSphere sphere(Vector3D(1, 2, 1), 2);
+    
+    Vector3D grad = sphere.Gradient(Vector3D(2, 1, 3));
+    EXPECT_DOUBLE_EQ(2.0, grad.GetX());
+    EXPECT_DOUBLE_EQ(-2.0, grad.GetY());
+    EXPECT_DOUBLE_EQ(4.0, grad.GetZ());
+}
