@@ -1,6 +1,7 @@
 #ifndef RAY_H_
 #define RAY_H_
 
+#include "box.h"
 #include "vector3d.h"
 
 class Ray
@@ -27,6 +28,13 @@ public:
 	 */
 	Vector3D Follow(double distance) const;
 
+    /**
+     * Returns true if this ray intersects the given box.  If there is
+     * an intersection, the distances to the intersection points (along
+     * the ray) are returned in tNear and tFar.
+     */
+    bool Intersects(Box &box, double *tNear, double *tFar);
+    
 private:
 	Vector3D origin;
 	Vector3D direction;
