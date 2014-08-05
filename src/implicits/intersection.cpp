@@ -4,8 +4,6 @@
 
 #include <algorithm>
 
-#include <iostream>
-
 BoxIntersection::BoxIntersection(Box box, Ray ray, double tNear, double tFar)
     : box(box), ray(ray), tNear(tNear), tFar(tFar)
 {
@@ -89,11 +87,8 @@ bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection,
     double maxGradChange = implicitSurface->GradLipschitzConstant(
             ray, t1, t2) * halfDistance;
     
-    std::cout << "Gd = " << maxGradChange << std::endl;
-    double g = abs(implicitSurface->DirectionalGradient(ray, tMid));
-    std::cout << "g = " << g << std::endl;
-    
-    if (g <= maxGradChange) {
+    if (abs(implicitSurface->DirectionalGradient(ray, tMid)) <= 
+            maxGradChange) {
         double F1 = implicitSurface->ImplicitFunction(ray.Follow(t1));
         double F2 = implicitSurface->ImplicitFunction(ray.Follow(t2));
         
@@ -101,7 +96,6 @@ bool RayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersection,
             // Opposite signs
             
             Vector3D root = rootFinder.FindRoot(implicitSurface, ray, tMid);
-            std::cout << "Root: " << root.GetX() << ", " << root.GetY() << ", " << root.GetZ() << std::endl;
             intersectionPoint.SetX(root.GetX());
             intersectionPoint.SetY(root.GetY());
             intersectionPoint.SetZ(root.GetZ());

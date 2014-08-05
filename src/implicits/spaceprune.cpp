@@ -5,8 +5,6 @@
 
 #include "vector3d.h"
 
-#include <iostream>
-
 SpacePruner::SpacePruner(ImplicitSurface* surface)
     : surface(surface)
 {
@@ -57,7 +55,6 @@ void SpacePruner::ProcessBox(Octree* tree)
         
         if (IsStraddling(box)) {
             tree->Accept();
-            std::cout << "Accepted box" << std::endl;
         } else {
             double lipschitzConstant = surface->LipschitzConstant(
                     box.GetMinPoint(), box.GetMaxPoint());
