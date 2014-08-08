@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "box.h"
+#include "implicits/octree.h"
 #include "ray.h"
 #include "vector3d.h"
 
@@ -74,6 +75,29 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
     double distance;
     EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
 
+    Vector3D intersection = ray.Follow(distance);
+    EXPECT_DOUBLE_EQ(1.0, intersection.GetX());
+    EXPECT_DOUBLE_EQ(0.0, intersection.GetY());
+    EXPECT_DOUBLE_EQ(0.0, intersection.GetZ());
+}
+
+TEST(RayIntersecterTest, FindSurfaceIntersectionTwoIntersections)
+{
+    Box box(Vector3D(0, 0, 0), 3);
+    Ray ray(Vector3D(3, 0, 0), Vector3D(-1, 0, 0));
+    BoxIntersection candidate(box, ray, 1.5, 4.5);
+    
+    /* Make sure no initial pruning occurs, we want to see how it handles
+       the entire sphere in one bounding box. */
+    Octree *octree = new Octree(box);
+    
+    ImplicitRayIntersecter intersecter(new SphereSurface(Vector3D(0), 1), 
+            octree);
+
+    double distance;
+    EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
+    EXPECT_DOUBLE_EQ(2.0, distance);
+    
     Vector3D intersection = ray.Follow(distance);
     EXPECT_DOUBLE_EQ(1.0, intersection.GetX());
     EXPECT_DOUBLE_EQ(0.0, intersection.GetY());
