@@ -128,7 +128,12 @@ bool ImplicitRayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersec
         if (F1 * F2 < 0) {
             // Opposite signs
             *distance = rootFinder.FindRoot(implicitSurface, ray, tMid);
-            return true;
+            /* This handles numerical imprecision that was causing trouble. */
+            if (*distance > rootFinder.GetTolerance()) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             // Same sign, no intersection
             return false;
