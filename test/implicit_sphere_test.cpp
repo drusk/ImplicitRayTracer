@@ -12,6 +12,7 @@ namespace
     Vector3D DEFAULT_SURFACE_COLOUR(0);
     double DEFAULT_REFLECTIVITY = 0.5;
     double DEFAULT_TRANSPARENCY = 0.5;
+    double DELTA = 0.00000001;
 }
 
 TEST(ImplicitSphereTest, IntersectHorizontalRayCenterOfSphere)
@@ -24,7 +25,7 @@ TEST(ImplicitSphereTest, IntersectHorizontalRayCenterOfSphere)
     double distance;
     EXPECT_TRUE(sphere.Intersect(ray, &distance));
     
-    EXPECT_DOUBLE_EQ(2.0, distance);
+    EXPECT_NEAR(2.0, distance, DELTA);
 }
 
 TEST(ImplicitSphereTest, IntersectDiagonalRayCenterOfSphere)
@@ -37,7 +38,7 @@ TEST(ImplicitSphereTest, IntersectDiagonalRayCenterOfSphere)
     double distance;
     EXPECT_TRUE(sphere.Intersect(ray, &distance));
     
-    EXPECT_DOUBLE_EQ(2.0, distance);
+    EXPECT_NEAR(2.0, distance, DELTA);
 }
 
 TEST(ImplicitSphereTest, NoIntersect)
