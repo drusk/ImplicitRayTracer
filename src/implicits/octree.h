@@ -25,11 +25,11 @@ public:
     void Subdivide();
     
     /**
-     * Subdivides the octree into 8 subtrees with the number of recursive
-     * levels specified by the level parameter.  For example, if level is 2,
+     * Subdivides the octree into 8 subtrees recursively the number of times
+     * specified by the level parameter.  For example, if level is 2,
      * the box is divided into 8, and then each of these 8 is subdivided, for
      * a total of 64 subtrees. 
-     * Level must be >= 0.
+     * Level must be >= 0.  Level 0 means no subdivision.
      */
     void Subdivide(int level);
     

@@ -42,10 +42,9 @@ void Octree::Subdivide(int level)
     if (level < 0) {
         throw std::range_error("Subdivision level must be >= 0.");
     }
-    
-    Subdivide();
-    
-    if (level > 1) {
+
+    if (level > 0) {
+        Subdivide();
         level--;
 
         for (int i = 0; i < NUM_CHILDREN; i++) {
