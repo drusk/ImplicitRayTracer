@@ -42,7 +42,7 @@ ImplicitRayIntersecter::ImplicitRayIntersecter(
     : implicitSurface(implicitSurface)
 {
     SpacePruner pruner(implicitSurface);
-    octree = pruner.Prune(defaults::OCTREE_PRUNING_LEVEL);
+    octree = pruner.Prune(defaults::OCTREE_SUBDIVISION_LEVEL);
 }
 
 ImplicitRayIntersecter::ImplicitRayIntersecter(

@@ -16,7 +16,7 @@ namespace defaults
 
     const std::string OUTPUT_FILENAME = "output.ppm";
     
-    const int OCTREE_PRUNING_LEVEL = 4;
+    const int OCTREE_SUBDIVISION_LEVEL = 4;
     
     const bool IMPLICIT = false;
 }
