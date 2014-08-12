@@ -7,7 +7,10 @@
 #include "box.h"
 #include "vector3d.h"
 
-#define DELTA 0.0000001
+namespace
+{
+    double DELTA = 0.0000001;
+}
 
 TEST(RayTest, GetDirectionIsNormalized)
 {

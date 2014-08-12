@@ -7,9 +7,12 @@
 #include "ray.h"
 #include "vector3d.h"
 
-#define DEFAULT_SURFACE_COLOUR Vector3D(0)
-#define DEFAULT_REFLECTIVITY 0.5
-#define DEFAULT_TRANSPARENCY 0.5
+namespace
+{
+    Vector3D DEFAULT_SURFACE_COLOUR(0);
+    double DEFAULT_REFLECTIVITY = 0.5;
+    double DEFAULT_TRANSPARENCY = 0.5;
+}
 
 TEST(ImplicitSphereTest, IntersectHorizontalRayCenterOfSphere)
 {

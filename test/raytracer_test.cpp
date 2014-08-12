@@ -7,14 +7,18 @@
 #include "sphere.h"
 #include "vector3d.h"
 
-#define MAX_DEPTH 5
-#define FOV 30
-#define BACKGROUND Vector3D(0.0, 0.0, 0.0)
-#define BIAS 1e-4
-#define DEFAULT_SURFACE_COLOUR Vector3D(1.0, 1.0, 1.0)
-#define DEFAULT_TRANSPARENCY 0.5
-#define DEFAULT_REFLECTIVITY 0.5
-#define DELTA 0.0000001
+namespace
+{
+    int MAX_DEPTH = 5;
+    double FOV = 30.0;
+    Vector3D BACKGROUND(0.0, 0.0, 0.0);
+    double BIAS = 1e-4;
+    Vector3D DEFAULT_SURFACE_COLOUR(1.0, 1.0, 1.0);
+    double DEFAULT_TRANSPARENCY = 0.5;
+    double DEFAULT_REFLECTIVITY = 0.5;
+    Vector3D DEFAULT_EMISSION_COLOUR(3.0, 3.0, 3.0);
+    double DELTA = 0.0000001;
+}
 
 TEST(RayTracerTest, IntersectObjectSingleDirectHit)
 {
