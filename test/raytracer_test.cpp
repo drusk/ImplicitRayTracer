@@ -9,7 +9,7 @@
 
 namespace
 {
-    int MAX_DEPTH = 5;
+    int MAX_DEPTH = 1;
     double FOV = 30.0;
     Vector3D BACKGROUND(0.0, 0.0, 0.0);
     double BIAS = 1e-4;
@@ -120,4 +120,51 @@ TEST(RayTracerTest, IntersectObjectMultipleHitNearest)
     EXPECT_EQ(sphere, intersectedObject);
 
     EXPECT_DOUBLE_EQ(8.0, distance);
+}
+
+/** 
+ * This is a regression test, and provides the expected values for
+ * testing with implicits. 
+ */
+TEST(RayTracerIntegrationTest, TraceRayGeometricIntersecterRegression)
+{
+    Scene scene;
+    scene.AddSphere(Vector3D(10, 0, 0), 4, 
+            Vector3D(0.3, 0.6, 0.0), 1.0, 0.5);
+    scene.AddLight(Vector3D(0.0, 5.0, 0.0), 1,
+            DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
+            DEFAULT_REFLECTIVITY,
+            DEFAULT_EMISSION_COLOUR);
+    
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, Vector3D(2.0), BIAS);
+
+    Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(1.0, 0.0, 0.0));
+    
+    Vector3D colour = raytracer.TraceRay(ray, 0);
+    EXPECT_NEAR(0.059999999999999998, colour.GetX(), DELTA);
+    EXPECT_NEAR(0.12, colour.GetY(), DELTA);
+    EXPECT_NEAR(0.0, colour.GetZ(), DELTA);
+}
+
+/** 
+ * Should get the same answer as without using implicits.
+ */
+TEST(RayTracerIntegrationTest, TraceRayImplicitIntersecter)
+{
+    Scene scene;
+    scene.AddSphere(Vector3D(10, 0, 0), 4, 
+            Vector3D(0.3, 0.6, 0.0), 1.0, 0.5, true);
+    scene.AddLight(Vector3D(0.0, 5.0, 0.0), 1,
+            DEFAULT_SURFACE_COLOUR, DEFAULT_TRANSPARENCY,
+            DEFAULT_REFLECTIVITY,
+            DEFAULT_EMISSION_COLOUR, true);
+    
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, Vector3D(2.0), BIAS);
+
+    Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(1.0, 0.0, 0.0));
+    
+    Vector3D colour = raytracer.TraceRay(ray, 0);
+    EXPECT_NEAR(0.059999999999999998, colour.GetX(), DELTA);
+    EXPECT_NEAR(0.12, colour.GetY(), DELTA);
+    EXPECT_NEAR(0.0, colour.GetZ(), DELTA);
 }
