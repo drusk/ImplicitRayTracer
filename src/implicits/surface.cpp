@@ -1,5 +1,7 @@
 #include "implicits/surface.h"
 
+#include <cmath>
+
 SphereSurface::SphereSurface(Vector3D center, double radius)
     : center(center), radius(radius)
 {
@@ -30,10 +32,22 @@ double SphereSurface::DirectionalGradient(Ray ray, double t)
 
 double SphereSurface::LipschitzConstant(Vector3D minPoint, Vector3D maxPoint)
 {
-    return (2.0 / radius) * maxPoint.Length();
+    double maxX = ChooseAbsoluteMax(minPoint.GetX(), maxPoint.GetX());
+    double maxY = ChooseAbsoluteMax(minPoint.GetY(), maxPoint.GetY());
+    double maxZ = ChooseAbsoluteMax(minPoint.GetZ(), maxPoint.GetZ());
+
+    return (2.0 / radius) * Vector3D(maxX, maxY, maxZ).Length();
 }
 
 double SphereSurface::GradLipschitzConstant(Ray ray, double t1, double t2)
 {
     return (2.0 / radius) * ray.GetDirection().LengthSquared();
+}
+
+double SphereSurface::ChooseAbsoluteMax(double value1, double value2)
+{
+    double absValue1 = std::abs(value1);
+    double absValue2 = std::abs(value2);
+    
+    return absValue1 > absValue2 ? absValue1 : absValue2;
 }

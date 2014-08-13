@@ -51,6 +51,15 @@ TEST(ImplicitSphereTest, Lipschitz)
     EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
 }
 
+TEST(ImplicitSphereTest, LipschitzLargerNegatives)
+{
+    SphereSurface sphere(Vector3D(1, 1, 1), 2);
+    Vector3D minPoint(-3, -3, -3);
+    Vector3D maxPoint(1, 1, 1);
+    
+    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
+}
+
 TEST(ImplicitSphereTest, LipschitzGrad)
 {
     SphereSurface sphere(Vector3D(1, 1, 1), 2);

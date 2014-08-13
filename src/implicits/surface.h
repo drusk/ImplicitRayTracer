@@ -68,6 +68,12 @@ public:
 private:
     Vector3D center;
     double radius;
+    
+    /**
+     * Takes the absolute value of each value, returning the larger
+     * absolute value.
+     */
+    double ChooseAbsoluteMax(double value1, double value2);
 };
 
 #endif
