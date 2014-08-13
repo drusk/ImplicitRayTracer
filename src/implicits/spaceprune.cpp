@@ -5,7 +5,7 @@
 
 #include "vector3d.h"
 
-SpacePruner::SpacePruner(ImplicitSurface* surface)
+SpacePruner::SpacePruner(ImplicitSurface *surface)
     : surface(surface)
 {
 }
@@ -44,7 +44,7 @@ bool SpacePruner::IsStraddling(Box box)
     return false;
 }
 
-void SpacePruner::ProcessBox(Octree* tree)
+void SpacePruner::ProcessBox(Octree *tree)
 {
     if (!tree->IsLeaf()) {
         for (int i = 0; i < Octree::NUM_CHILDREN; i++) {
