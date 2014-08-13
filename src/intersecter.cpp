@@ -34,7 +34,16 @@ bool GeometricRayIntersecter::Intersect(Ray ray, double* distance)
     double distanceFromCenterToIntersection = sqrt(radiusSquared -
             squaredDistanceFromCenterToIntersection);
 
-    *distance = projectionAlongRay - distanceFromCenterToIntersection;
+    if (rayToCenter.LengthSquared() < radiusSquared) {
+        /* We are inside the sphere, get the far side. */
+        *distance = projectionAlongRay + distanceFromCenterToIntersection;
+    } else {
+        *distance = projectionAlongRay - distanceFromCenterToIntersection;
+    }
 
-    return true;
+    if (*distance > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
