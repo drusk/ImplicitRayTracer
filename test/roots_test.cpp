@@ -16,7 +16,8 @@ TEST(NewtonRootFinderTest, FindIntersection)
     double root = rootFinder.FindRoot(&surface, ray, guess);
     Vector3D rootPoint = ray.Follow(root);
     
-    EXPECT_DOUBLE_EQ(1.0, rootPoint.GetX());
-    EXPECT_DOUBLE_EQ(0.0, rootPoint.GetY());
-    EXPECT_DOUBLE_EQ(0.0, rootPoint.GetZ());
+    double delta = rootFinder.GetTolerance();
+    EXPECT_NEAR(1.0, rootPoint.GetX(), delta);
+    EXPECT_NEAR(0.0, rootPoint.GetY(), delta);
+    EXPECT_NEAR(0.0, rootPoint.GetZ(), delta);
 }

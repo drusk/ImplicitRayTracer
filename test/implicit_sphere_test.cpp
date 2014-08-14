@@ -12,7 +12,7 @@ namespace
     Vector3D DEFAULT_SURFACE_COLOUR(0);
     double DEFAULT_REFLECTIVITY = 0.5;
     double DEFAULT_TRANSPARENCY = 0.5;
-    double DELTA = 0.00000001;
+    double DELTA = 0.01;
 }
 
 TEST(ImplicitSphereTest, IntersectHorizontalRayCenterOfSphere)

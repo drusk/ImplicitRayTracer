@@ -10,6 +10,11 @@
 #include "ray.h"
 #include "vector3d.h"
 
+namespace
+{
+    const double DELTA = 0.01;
+}
+
 TEST(RayIntersecterTest, FindCandidateBoxes)
 {
     Box box(Vector3D(0), 2);
@@ -76,9 +81,9 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionOneIntersection)
     EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
 
     Vector3D intersection = ray.Follow(distance);
-    EXPECT_DOUBLE_EQ(1.0, intersection.GetX());
-    EXPECT_DOUBLE_EQ(0.0, intersection.GetY());
-    EXPECT_DOUBLE_EQ(0.0, intersection.GetZ());
+    EXPECT_NEAR(1.0, intersection.GetX(), DELTA);
+    EXPECT_NEAR(0.0, intersection.GetY(), DELTA);
+    EXPECT_NEAR(0.0, intersection.GetZ(), DELTA);
 }
 
 TEST(RayIntersecterTest, FindSurfaceIntersectionTwoIntersections)
@@ -96,12 +101,12 @@ TEST(RayIntersecterTest, FindSurfaceIntersectionTwoIntersections)
 
     double distance;
     EXPECT_TRUE(intersecter.FindSurfaceIntersection(candidate, &distance));
-    EXPECT_DOUBLE_EQ(2.0, distance);
+    EXPECT_NEAR(2.0, distance, DELTA);
     
     Vector3D intersection = ray.Follow(distance);
-    EXPECT_DOUBLE_EQ(1.0, intersection.GetX());
-    EXPECT_DOUBLE_EQ(0.0, intersection.GetY());
-    EXPECT_DOUBLE_EQ(0.0, intersection.GetZ());
+    EXPECT_NEAR(1.0, intersection.GetX(), DELTA);
+    EXPECT_NEAR(0.0, intersection.GetY(), DELTA);
+    EXPECT_NEAR(0.0, intersection.GetZ(), DELTA);
 }
 
 TEST(RayIntersecterTest, FindSurfaceIntersectionNoIntersection)

@@ -12,9 +12,12 @@
 class NewtonRootFinder {
 public:
     /**
-     * 
+     * Creates a new root finder with the specified tolerance.  Once
+     * successive estimates of the root differ by less than the 
+     * tolerance, the solution is considered to have converged and the
+     * result is returned.
      */
-    NewtonRootFinder(double tolerance = 0.000001);
+    NewtonRootFinder(double tolerance = 0.01);
     
     double GetTolerance();
     
