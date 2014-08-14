@@ -62,7 +62,7 @@ public:
 	 * normal is as provided.  If the parameter inside is true, then the
 	 * ray is refracting from inside the object, otherwise from outside.
 	 */
-	Ray CalculateRefractedRay(Ray ray, bool inside, Vector3D intersectionPoint,
+	Ray *CalculateRefractedRay(Ray ray, bool inside, Vector3D intersectionPoint,
 			Vector3D normal);
 
 	/**

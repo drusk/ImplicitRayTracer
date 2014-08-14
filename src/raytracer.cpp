@@ -1,6 +1,7 @@
 #include "raytracer.h"
 
 #include <cmath>
+#include <cstddef>
 
 RayTracer::RayTracer(Scene &scene, int maxRayDepth, double fieldOfView,
         Vector3D backgroundColour, double bias)
@@ -48,10 +49,14 @@ Vector3D RayTracer::TraceRay(Ray ray, int depth)
 
         if (intersectedObject->IsTransparent()) {
             /* Also compute refraction ray from transmission. */
-            Ray refractedRay = CalculateRefractedRay(ray, inside,
+            Ray *refractedRay = CalculateRefractedRay(ray, inside,
                     pointOfIntersection, intersectionNormal);
 
-            refraction = TraceRay(refractedRay, depth + 1);
+            if (refractedRay != NULL) {
+                refraction = TraceRay(*refractedRay, depth + 1);
+            }
+            
+            delete refractedRay;
         }
 
         surfaceColour = intersectedObject->CalculateEffectiveSurfaceColour(
@@ -105,7 +110,8 @@ Ray RayTracer::CalculateReflectedRay(Ray ray, Vector3D intersectionPoint,
     return Ray(intersectionPoint + normal * bias, reflectedDirection);
 }
 
-Ray RayTracer::CalculateRefractedRay(Ray ray, bool inside,
+/* See http://steve.hollasch.net/cgindex/render/refraction.txt */
+Ray *RayTracer::CalculateRefractedRay(Ray ray, bool inside,
         Vector3D intersectionPoint, Vector3D normal)
 {
     Vector3D rayDirection = ray.GetDirection();
@@ -115,11 +121,16 @@ Ray RayTracer::CalculateRefractedRay(Ray ray, bool inside,
     double cosi = -(normal.DotProduct(rayDirection));
 
     double k = 1 - eta * eta * (1 - cosi * cosi);
+    
+    if (k < 0) {
+        /* Total internal reflection */
+        return NULL;
+    }
 
     Vector3D refractionDirection = rayDirection * eta +
             normal * (eta * cosi - sqrt(k));
 
-    return Ray(intersectionPoint - normal * bias, refractionDirection);
+    return new Ray(intersectionPoint - normal * bias, refractionDirection);
 }
 
 Vector3D RayTracer::CalculateIlluminationFromLightSources(
