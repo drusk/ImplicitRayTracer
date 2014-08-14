@@ -16,3 +16,15 @@ The results can be visualized using kcachegrind:
 ```
 kcachegrind callgrind.out.xxx
 ```
+
+Notes
+-----
+
+callgrind.out.e5e3a1a: run with the following modifications 
+(to reduce runtime):
+
+* only green sphere and light in scene
+* 25x25 image
+* ray depth 1
+* subdivision level 0
+* implicit true
