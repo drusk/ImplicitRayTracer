@@ -1,5 +1,7 @@
 #include "vector3d.h"
 
+#include <ctime>
+
 #include <iostream>
 
 #include "defaults.h"
@@ -27,9 +29,10 @@ void PopulateScene(Scene &scene)
             Vector3D(3.0, 3.0, 3.0), defaults::IMPLICIT);
 }
 
-int main(int argc, char **argv)
+void RunApplication()
 {
     std::cout << "Creating scene..." << std::endl;
+    
     Scene scene;
     PopulateScene(scene);
 
@@ -53,8 +56,18 @@ int main(int argc, char **argv)
     std::cout << "Finished writing output." << std::endl;
     
     delete image;
+}
+
+int main(int argc, char **argv)
+{
+    std::clock_t start = std::clock();
+
+    RunApplication();
     
-    std::cout << "Done." << std::endl;
+    double totalTime = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+    
+    std::cout << "Done.  Total time: " << totalTime << " seconds." 
+            << std::endl;
 
     return 0;
 }
