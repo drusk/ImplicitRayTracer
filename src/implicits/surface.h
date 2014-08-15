@@ -74,6 +74,13 @@ private:
      * absolute value.
      */
     double ChooseAbsoluteMax(double value1, double value2);
+    
+    /**
+     * Finds the maximum absolute value of the difference between
+     * the center and minPoint/maxPoint along each dimension.
+     */
+    Vector3D GetAbsoluteMaxDiffFromCenter(Vector3D minPoint, 
+            Vector3D maxPoint);
 };
 
 #endif

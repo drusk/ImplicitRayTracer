@@ -44,7 +44,7 @@ TEST(ImplicitSphereTest, BoundingBox)
 
 TEST(ImplicitSphereTest, Lipschitz)
 {
-    SphereSurface sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(0), 2);
     Vector3D minPoint(-1, -1, -1);
     Vector3D maxPoint(3, 3, 3);
     
@@ -53,9 +53,27 @@ TEST(ImplicitSphereTest, Lipschitz)
 
 TEST(ImplicitSphereTest, LipschitzLargerNegatives)
 {
-    SphereSurface sphere(Vector3D(1, 1, 1), 2);
+    SphereSurface sphere(Vector3D(0), 2);
     Vector3D minPoint(-3, -3, -3);
     Vector3D maxPoint(1, 1, 1);
+    
+    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
+}
+
+TEST(ImplicitSphereTest, LipschitzShifted)
+{
+    SphereSurface sphere(Vector3D(5), 2);
+    Vector3D minPoint(4);
+    Vector3D maxPoint(8);
+    
+    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
+}
+
+TEST(ImplicitSphereTest, LipschitzShiftedNegative)
+{
+    SphereSurface sphere(Vector3D(-10), 2);
+    Vector3D minPoint(-13);
+    Vector3D maxPoint(-9);
     
     EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
 }
@@ -77,3 +95,14 @@ TEST(ImplicitSphereTest, Gradient)
     EXPECT_DOUBLE_EQ(-2.0, grad.GetY());
     EXPECT_DOUBLE_EQ(4.0, grad.GetZ());
 }
+
+//TEST(ImplicitSphereTest, LargeSphereLipschitz)
+//{
+//    SphereSurface sphere(Vector3D(0), 10000);
+//    Box boundingBox = sphere.BoundingBox();
+//    
+//    double delta = 0.1;
+//    EXPECT_NEAR(0.0, sphere.LipschitzConstant(
+//            boundingBox.GetMinPoint(), boundingBox.GetMaxPoint()),
+//            delta);
+//}
