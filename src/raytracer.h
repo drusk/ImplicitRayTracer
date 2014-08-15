@@ -4,6 +4,7 @@
 #include <list>
 
 #include "image.h"
+#include "progress.h"
 #include "ray.h"
 #include "scene.h"
 #include "sphere.h"
@@ -80,6 +81,8 @@ private:
 	double fieldOfView;
 	Vector3D backgroundColour;
 	double bias;
+    
+    ProgressBar progressBar;
 
 	double CalculateFresnelEffect(const Ray &ray, const Vector3D &normal);
 

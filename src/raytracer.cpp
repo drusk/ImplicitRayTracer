@@ -182,6 +182,7 @@ Image *RayTracer::TraceImage(int width, int height)
     double invHeight = 1 / (double) height;
     double aspectRatio = (double) width / (double) height;
     double angle = tan(M_PI * 0.5 * fieldOfView / 180.0);
+    double numPixels = width * height;
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -194,7 +195,11 @@ Image *RayTracer::TraceImage(int width, int height)
             Ray ray(origin, rayDirection);
             image->SetPixel(x, y, TraceRay(ray, 0));
         }
+        
+        progressBar.Update((double) (y + 1) * width / numPixels);
     }
+    
+    progressBar.Done();
 
     return image;
 }
