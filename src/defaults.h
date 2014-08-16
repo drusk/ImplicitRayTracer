@@ -7,8 +7,8 @@ namespace defaults
 {
     const int IMAGE_WIDTH = 640;
     const int IMAGE_HEIGHT = 480;
-    
-    const int MAX_RAY_DEPTH = 5;
+
+    const int MAX_RAY_DEPTH = 1;
     const double FIELD_OF_VIEW = 30.0;
     const double BIAS = 1e-4;
     
