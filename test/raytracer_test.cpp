@@ -168,3 +168,24 @@ TEST(RayTracerIntegrationTest, TraceRayImplicitIntersecter)
     EXPECT_NEAR(0.12, colour.GetY(), DELTA);
     EXPECT_NEAR(0.0, colour.GetZ(), DELTA);
 }
+
+TEST(RayTracerIntegrationTest, FloorSphere)
+{
+    bool implicit = true;
+    
+    Scene scene;
+    scene.AddSphere(Vector3D(0, -10004, -20), 10000, 
+            Vector3D(0.2, 0.2, 0.2), 0.0, 0.0, implicit);
+
+    scene.AddLight(Vector3D(0, 20, -30), 3, Vector3D(0.0, 0.0, 0.0), 0.0, 0.0,
+            Vector3D(3.0, 3.0, 3.0), implicit);
+    
+    RayTracer raytracer(scene, MAX_DEPTH, FOV, Vector3D(2.0), BIAS);
+    Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(0.0, -0.5, -1.0));
+    
+    double delta = 0.01;
+    Vector3D colour = raytracer.TraceRay(ray, 0);
+    EXPECT_NEAR(colour.GetX(), 0.441999, delta);
+    EXPECT_NEAR(colour.GetY(), 0.441999, delta);
+    EXPECT_NEAR(colour.GetZ(), 0.441999, delta);
+}

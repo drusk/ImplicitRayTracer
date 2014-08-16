@@ -51,3 +51,19 @@ TEST(ImplicitSphereTest, NoIntersect)
     double distance;
     EXPECT_FALSE(sphere.Intersect(ray, &distance));
 }
+
+TEST(ImplicitSphereTest, FloorSphere)
+{
+    bool implicit = true;
+    
+    Sphere sphere(Vector3D(0, -10004, -20), 10000, 
+            Vector3D(0.2, 0.2, 0.2), 0.0, 0.0, implicit);
+    
+    Ray ray(Vector3D(0.0, 0.0, 0.0), Vector3D(0.0, -0.5, -1.0));
+    
+    double distance;
+    EXPECT_TRUE(sphere.Intersect(ray, &distance));
+    
+    double delta = 0.01;
+    EXPECT_NEAR(8.9603330814670699, distance, delta);
+}

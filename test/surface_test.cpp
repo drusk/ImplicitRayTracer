@@ -42,40 +42,34 @@ TEST(ImplicitSphereTest, BoundingBox)
     EXPECT_TRUE(box.GetSideLength() > 4.0);
 }
 
-TEST(ImplicitSphereTest, Lipschitz)
+TEST(ImplicitSphereTest, LipschitzUseMaxPoint)
 {
     SphereSurface sphere(Vector3D(0), 2);
     Vector3D minPoint(-1, -1, -1);
-    Vector3D maxPoint(3, 3, 3);
+    Vector3D maxPoint(4, 4, 4);
     
-    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
+    EXPECT_DOUBLE_EQ(2 * sqrt(27), 
+            sphere.LipschitzConstant(minPoint, maxPoint));
 }
 
-TEST(ImplicitSphereTest, LipschitzLargerNegatives)
+TEST(ImplicitSphereTest, LipschitzUseMinPoint)
 {
     SphereSurface sphere(Vector3D(0), 2);
     Vector3D minPoint(-3, -3, -3);
     Vector3D maxPoint(1, 1, 1);
     
-    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
+    EXPECT_DOUBLE_EQ(2 * sqrt(48), 
+            sphere.LipschitzConstant(minPoint, maxPoint));
 }
 
-TEST(ImplicitSphereTest, LipschitzShifted)
+TEST(ImplicitSphereTest, LipschitzUseMix)
 {
     SphereSurface sphere(Vector3D(5), 2);
-    Vector3D minPoint(4);
-    Vector3D maxPoint(8);
+    Vector3D minPoint(-1, -3, -1);
+    Vector3D maxPoint(4, 1, 4);
     
-    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
-}
-
-TEST(ImplicitSphereTest, LipschitzShiftedNegative)
-{
-    SphereSurface sphere(Vector3D(-10), 2);
-    Vector3D minPoint(-13);
-    Vector3D maxPoint(-9);
-    
-    EXPECT_DOUBLE_EQ(sqrt(27), sphere.LipschitzConstant(minPoint, maxPoint));
+    EXPECT_DOUBLE_EQ(2 * sqrt(34), 
+            sphere.LipschitzConstant(minPoint, maxPoint));
 }
 
 TEST(ImplicitSphereTest, LipschitzGrad)
@@ -83,7 +77,9 @@ TEST(ImplicitSphereTest, LipschitzGrad)
     SphereSurface sphere(Vector3D(1, 1, 1), 2);
     Ray ray(Vector3D(-5, -5, -5), Vector3D(1, 1, 1));
     
-    EXPECT_DOUBLE_EQ(1.0, sphere.GradLipschitzConstant(ray, 0, 1));
+    // Note direction of ray gets normalized, so lengthSquared is 1
+    
+    EXPECT_DOUBLE_EQ(2.0, sphere.GradLipschitzConstant(ray, 0, 1));
 }
 
 TEST(ImplicitSphereTest, Gradient)
@@ -95,14 +91,3 @@ TEST(ImplicitSphereTest, Gradient)
     EXPECT_DOUBLE_EQ(-2.0, grad.GetY());
     EXPECT_DOUBLE_EQ(4.0, grad.GetZ());
 }
-
-//TEST(ImplicitSphereTest, LargeSphereLipschitz)
-//{
-//    SphereSurface sphere(Vector3D(0), 10000);
-//    Box boundingBox = sphere.BoundingBox();
-//    
-//    double delta = 0.1;
-//    EXPECT_NEAR(0.0, sphere.LipschitzConstant(
-//            boundingBox.GetMinPoint(), boundingBox.GetMaxPoint()),
-//            delta);
-//}

@@ -32,13 +32,16 @@ double SphereSurface::DirectionalGradient(Ray ray, double t)
 
 double SphereSurface::LipschitzConstant(Vector3D minPoint, Vector3D maxPoint)
 {
-    return (2.0 / radius) * 
-            GetAbsoluteMaxDiffFromCenter(minPoint, maxPoint).Length();
+    double x = ChooseAbsoluteMax(minPoint.GetX() - 1, maxPoint.GetX() - 1);
+    double y = ChooseAbsoluteMax(minPoint.GetY() - 1, maxPoint.GetY() - 1);
+    double z = ChooseAbsoluteMax(minPoint.GetZ() - 1, maxPoint.GetZ() - 1);
+    
+    return 2.0 * Vector3D(x, y, z).Length();
 }
 
 double SphereSurface::GradLipschitzConstant(Ray ray, double t1, double t2)
 {
-    return (2.0 / radius) * ray.GetDirection().LengthSquared();
+    return 2.0 * ray.GetDirection().LengthSquared();
 }
 
 double SphereSurface::ChooseAbsoluteMax(double value1, double value2)
