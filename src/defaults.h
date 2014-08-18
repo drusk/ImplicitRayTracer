@@ -18,7 +18,7 @@ namespace defaults
     
     const int OCTREE_SUBDIVISION_LEVEL = 0;
     
-    const bool IMPLICIT = false;
+    const bool IMPLICIT = true;
 }
 
 #endif
