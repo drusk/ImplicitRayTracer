@@ -19,9 +19,9 @@ Example
 
 Build and Run
 -------------
-Building uses [cmake](http://www.cmake.org/), 
-tests use [googletest](https://code.google.com/p/googletest/) (included in the project
-in the vendor directory).
+Building uses [cmake](http://www.cmake.org/) (install if necessary), 
+testing uses [googletest](https://code.google.com/p/googletest/) 
+(included in the project in the vendor directory).
 
 There are no external dependencies.
 
