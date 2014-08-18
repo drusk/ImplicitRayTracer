@@ -19,15 +19,19 @@ double SphereSurface::ImplicitFunction(Vector3D point)
     return (point - center).LengthSquared() - radius * radius;
 }
 
-Vector3D SphereSurface::Gradient(Vector3D point)
-{
-    Vector3D diff = (point - center);
-    return Vector3D(2 * diff.GetX(), 2 * diff.GetY(), 2 * diff.GetZ());
-}
-
 double SphereSurface::DirectionalGradient(Ray ray, double t)
 {
-    return Gradient(ray.Follow(t)).DotProduct(ray.GetDirection());
+    double dirX = ray.GetDirection().GetX();
+    double dirY = ray.GetDirection().GetY();
+    double dirZ = ray.GetDirection().GetZ();
+    
+    double originX = ray.GetOrigin().GetX();
+    double originY = ray.GetOrigin().GetY();
+    double originZ = ray.GetOrigin().GetZ();
+    
+    return 2 * (pow(dirX, 2) * t + dirX * originX - dirX * center.GetX()
+            + pow(dirY, 2) * t + dirY * originY - dirY * center.GetY()
+            + pow(dirZ, 2) * t + dirZ * originZ - dirZ * center.GetZ());
 }
 
 double SphereSurface::LipschitzConstant(Vector3D minPoint, Vector3D maxPoint)

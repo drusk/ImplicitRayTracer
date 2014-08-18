@@ -28,12 +28,6 @@ public:
     virtual double ImplicitFunction(Vector3D point) = 0;
     
     /**
-     * Returns the gradient of the implicit function that defines this 
-     * surface at the specified point in space.
-     */
-    virtual Vector3D Gradient(Vector3D point) = 0;
-    
-    /**
      * Returns the gradient of the implicit function in the direction
      * of the ray, at the point t along the ray.
      */
@@ -60,7 +54,6 @@ public:
     
     virtual Box BoundingBox();
     virtual double ImplicitFunction(Vector3D point);
-    virtual Vector3D Gradient(Vector3D point);
     virtual double DirectionalGradient(Ray ray, double t);
     virtual double LipschitzConstant(Vector3D minPoint, Vector3D maxPoint);
     virtual double GradLipschitzConstant(Ray ray, double t1, double t2);

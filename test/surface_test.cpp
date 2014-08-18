@@ -82,12 +82,12 @@ TEST(ImplicitSphereTest, LipschitzGrad)
     EXPECT_DOUBLE_EQ(2.0, sphere.GradLipschitzConstant(ray, 0, 1));
 }
 
-TEST(ImplicitSphereTest, Gradient)
+TEST(ImplicitSphereTest, DirectionalGradient)
 {
-    SphereSurface sphere(Vector3D(1, 2, 1), 2);
+    SphereSurface sphere(Vector3D(4, 5, 4), 2);
+    Ray ray(Vector3D(1, 2, 1), Vector3D(-1, 1, 1));
     
-    Vector3D grad = sphere.Gradient(Vector3D(2, 1, 3));
-    EXPECT_DOUBLE_EQ(2.0, grad.GetX());
-    EXPECT_DOUBLE_EQ(-2.0, grad.GetY());
-    EXPECT_DOUBLE_EQ(4.0, grad.GetZ());
+    double delta = 0.0001;
+    double grad = sphere.DirectionalGradient(ray, 0.5);
+    EXPECT_NEAR(-2.464101615, grad, delta);
 }
