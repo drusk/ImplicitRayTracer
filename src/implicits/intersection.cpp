@@ -110,12 +110,17 @@ bool ImplicitRayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersec
     double t1 = boxIntersection.GetTNear();
     double t2 = boxIntersection.GetTFar();
     
+    if (t1 < 0 && t2 > 0) {
+        /* Only search area in front of ray. */
+        t1 = 0;
+    }
+    
     if ((t2 - t1) < rootFinder.GetTolerance()) {
         return false;
     }
     
     double tMid = (t1 + t2) / 2;
-    double halfDistance = (t2 - t1) / 2;
+    double halfDistance = (abs(t2) - abs(t1)) / 2;
     
     double maxGradChange = implicitSurface->GradLipschitzConstant(
             ray, t1, t2) * halfDistance;
@@ -128,6 +133,7 @@ bool ImplicitRayIntersecter::FindSurfaceIntersection(BoxIntersection boxIntersec
         if (F1 * F2 < 0) {
             // Opposite signs
             *distance = rootFinder.FindRoot(implicitSurface, ray, tMid);
+
             /* This handles numerical imprecision that was causing trouble. */
             if (*distance > rootFinder.GetTolerance()) {
                 return true;

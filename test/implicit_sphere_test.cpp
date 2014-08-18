@@ -67,3 +67,20 @@ TEST(ImplicitSphereTest, FloorSphere)
     double delta = 0.01;
     EXPECT_NEAR(8.9603330814670699, distance, delta);
 }
+
+TEST(ImplicitSphereTest, RefractionIlluminationBug)
+{
+    bool implicit = true;
+    
+    Sphere sphere(Vector3D(0, 0.5, -20), 4,
+            Vector3D(0.3, 0.6, 0.0), 1.0, 0.5, implicit);
+    
+    Ray ray(Vector3D(0.056079347927102043, -0.88426998702099402, -23.752312849399551),
+            Vector3D(-0.0025726474906209739, 0.95804627899290873, -0.28660200416733073));
+    
+    double distance;
+    EXPECT_TRUE(sphere.Intersect(ray, &distance));
+    
+    double delta = 0.01;
+    EXPECT_NEAR(0.503426, distance, delta);
+}
