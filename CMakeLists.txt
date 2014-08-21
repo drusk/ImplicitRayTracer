@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 2.8)
 set(PROJECT_NAME_STR ImplicitRayTracer)
 project(${PROJECT_NAME_STR} C CXX)
 
