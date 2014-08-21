@@ -1,6 +1,8 @@
 ImplicitRayTracer
 =================
 
+[![Build Status](https://travis-ci.org/drusk/ImplicitRayTracer.svg?branch=master)](https://travis-ci.org/drusk/ImplicitRayTracer)
+
 A simple ray tracer for implicit surfaces.
 
 Implicit surfaces are defined by an 
